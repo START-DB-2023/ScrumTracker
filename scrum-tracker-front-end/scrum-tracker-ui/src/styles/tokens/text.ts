@@ -17,6 +17,13 @@ import {
     },
     lg: {
         fontFamily: FONTFAMILY.fontPrimary,
+        fontWeight: FONTWEIGHT.bold,
+        fontSize: FONTSIZE.lg,
+        letterSpacing: LETTERSPACING.trackingTight,
+        lineHeight: LINEHEIGHT.normal,
+      },
+      lgLite: {
+        fontFamily: FONTFAMILY.fontPrimary,
         fontWeight: FONTWEIGHT.normal,
         fontSize: FONTSIZE.lg,
         letterSpacing: LETTERSPACING.trackingTight,

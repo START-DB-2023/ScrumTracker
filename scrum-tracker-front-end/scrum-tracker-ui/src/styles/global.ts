@@ -22,8 +22,4 @@ body {
     color: ${props => props.theme.COLORS.Transparent};
 }
 
-h1 {
-    font-size:${({theme}) => theme.FONTSIZE["lg"]};
-}
-
 `

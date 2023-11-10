@@ -1,8 +1,8 @@
 const lineHeight = {
-    base: "1em",
-    tight: "1.2em",
-    normal: "1.5em",
-    relaxed: "1.7em",
+    base: "1rem",
+    tight: "1.2rem",
+    normal: "1.5rem",
+    relaxed: "1.7rem",
   };
   
   export default lineHeight;
