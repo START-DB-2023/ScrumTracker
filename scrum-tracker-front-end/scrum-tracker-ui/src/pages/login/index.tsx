@@ -11,23 +11,15 @@ export default function Login(){
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault()
-
-        console.log("Email:",email);
-        console.log("Password:",password);
-
+        
         try {
-            await api.post("/",  {}, {
-                auth: {
-                    username: email,
-                    password: password
-                  } 
-            });
-
-            const response = await api.get("/hello/customer?name=Maria&email=maria@email.com&lastName=Ninguem");
+            const response = await api.get("/hello/authenticated",{
+            headers : {
+                authorization: `Basic ${btoa(email+":"+password)}`
+            }}); 
 
             console.log(response);
             
-
     } catch(error){
         return console.log(error);
         

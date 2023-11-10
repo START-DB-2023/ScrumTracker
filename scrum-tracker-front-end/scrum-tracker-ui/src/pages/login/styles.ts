@@ -42,6 +42,7 @@ export const FormContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    width:80%; 
   }
 
   button {
@@ -59,6 +60,11 @@ export const FormContainer = styled.div`
       background: ${(props) => props.theme.COLORS.white};
       color: ${(props) => props.theme.COLORS["green-300"]};
       border: 1px solid ${(props) => props.theme.COLORS["green-300"]};
+    }
+
+    @media (${(props) => props.theme.BREAKPOINTS.tablet}) {
+      width: 50%;
+      
     }
   }
 

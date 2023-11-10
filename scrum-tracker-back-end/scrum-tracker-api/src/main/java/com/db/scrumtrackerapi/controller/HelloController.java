@@ -2,6 +2,7 @@ package com.db.scrumtrackerapi.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/hello")
 public class HelloController {
     
-    @RequestMapping(value="/customer", method=RequestMethod.GET)
-    public ResponseEntity<Customer> helloCustomer(@RequestParam String email, @RequestParam String name, @RequestParam String lastName) {
-        Customer customer = new Customer(email, name, lastName, "letmein123", Role.ADMIN);
-        return new ResponseEntity<>(customer, HttpStatus.OK);
+    @CrossOrigin(origins = "http://localhost:5173")
+    @RequestMapping(value="/authenticated", method=RequestMethod.GET)
+    public ResponseEntity<String> helloCustomer() {
+        return new ResponseEntity<>("Hello, You are Authenticated.", HttpStatus.OK);
     }
     
 
