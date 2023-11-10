@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.db.scrumtrackerapi.models.Customer;
-import com.db.scrumtrackerapi.models.CustomerDTO;
+import com.db.scrumtrackerapi.models.dtos.CustomerDTO;
 import com.db.scrumtrackerapi.models.view.CustomerView;
 import com.db.scrumtrackerapi.repositories.CustomerRepository;
 

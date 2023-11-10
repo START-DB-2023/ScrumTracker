@@ -1,16 +1,31 @@
-package com.db.scrumtrackerapi.models;
+package com.db.scrumtrackerapi.models.dtos;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.db.scrumtrackerapi.models.Customer;
 import com.db.scrumtrackerapi.models.enums.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class CustomerDTO {
+
+    @Email(message = "E-mail Inválido.")
+    @NotBlank(message = "Blank Field.")
     private String email;
+
+    @NotBlank(message = "Blank Field.")
     private String name;
+
+    @NotBlank(message = "Blank Field.")
     private String lastName;
+
+    @NotBlank(message = "Blank Field.")
     private String password;
     
+    @NotNull(message = "Blank Field.")
     @JsonFormat(shape = JsonFormat.Shape.OBJECT)
     private Role role;
 
@@ -64,5 +79,19 @@ public class CustomerDTO {
     public void setRole(Role role) {
         this.role = role;
     }
+
+
+    public CustomerDTO(String email, String name, String lastName, String password, Role role) {
+        this.email = email;
+        this.name = name;
+        this.lastName = lastName;
+        this.password = password;
+        this.role = role;
+    }
+
+
+    protected CustomerDTO() {
+    }
+
 
 }
