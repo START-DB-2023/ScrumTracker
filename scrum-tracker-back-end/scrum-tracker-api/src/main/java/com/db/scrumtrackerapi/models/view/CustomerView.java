@@ -14,6 +14,10 @@ public class CustomerView {
     }
 
 
+    public CustomerView() {
+    
+    }
+
     public String getName() {
         return this.name;
     }

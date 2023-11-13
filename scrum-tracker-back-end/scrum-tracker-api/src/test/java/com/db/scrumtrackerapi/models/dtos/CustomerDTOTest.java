@@ -40,7 +40,7 @@ public class CustomerDTOTest {
     }
 
     @Test
-    @DisplayName("When Name is valid assert is valid")
+    @DisplayName("When Name is valid Assert is Valid")
     public void testValidName() {
         CustomerDTO customerDTO = new CustomerDTO("joao@email.com","Joao","Ninguem", "letmein123", Role.ADMIN);
 
@@ -49,7 +49,7 @@ public class CustomerDTOTest {
     }
 
     @Test
-    @DisplayName("when name is invalid assert is invalid")
+    @DisplayName("when Name is Invalid Assert is Invalid")
     public void testInvalidName() {
         CustomerDTO customerDTO = new CustomerDTO("joao@email.com"," ","Ninguem", "letmein123", Role.ADMIN);
 
@@ -59,18 +59,18 @@ public class CustomerDTOTest {
     }
 
     @Test
-    @DisplayName("when lastname is valid assert is valid")
+    @DisplayName("When Lastname is Valid Assert is Valid")
     public void testValidLastName(){
-        CustomerDTO customerDTO = new CustomerDTO("joao@email.com", "Maria", "Pira", "letmein123", Role.ADMIN);
+        CustomerDTO customerDTO = new CustomerDTO("joao@email.com", "Joao", "Ninguem", "letmein123", Role.ADMIN);
         
         Set<ConstraintViolation<CustomerDTO>> violations = validator.validate(customerDTO);
         assertEquals(true, violations.isEmpty());
     }
 
     @Test
-    @DisplayName("when lastname is invalid assert is invalid")
+    @DisplayName("When Lastname is Invalid Assert is Invalid")
     public void testInvalidLastName(){
-        CustomerDTO customerDTO = new CustomerDTO("joao@email.com", "Maria", " ", "letmein123", Role.ADMIN);
+        CustomerDTO customerDTO = new CustomerDTO("joao@email.com", "Joao", " ", "letmein123", Role.ADMIN);
         
         Set<ConstraintViolation<CustomerDTO>> violations = validator.validate(customerDTO);
         assertEquals(false, violations.isEmpty());
@@ -112,7 +112,7 @@ public class CustomerDTOTest {
     }
     
     @Test
-    @DisplayName("when role invalid assert is invalid")
+    @DisplayName("When Role Invalid Assert is Invalid")
     public void testInvalidRole() {
         CustomerDTO customerDTO = new CustomerDTO("joao@email.com","Joao","Ninguem","letmein123", null);
         Set<ConstraintViolation<CustomerDTO>> violations = validator.validate(customerDTO);

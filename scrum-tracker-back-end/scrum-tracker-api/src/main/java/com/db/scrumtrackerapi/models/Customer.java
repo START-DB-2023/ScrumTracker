@@ -13,24 +13,23 @@ import jakarta.persistence.Table;
 @Table(name = "customers")
 public class Customer extends BaseEntity {
     
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true, columnDefinition = "VARCHAR(255)")
     private String email;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(255)")
     private String name;
 
-    @Column(name = "lastName", nullable = false)
+    @Column(name = "lastName", nullable = false, columnDefinition = "VARCHAR(255)")
     private String lastName;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, columnDefinition = "VARCHAR(255)")
     private String password;
 
     @Column(name = "role", nullable = false)
     private Role role;
-
     
     public CustomerView toView(){
-       return new CustomerView(this.email, this.name, this.lastName, this.role.name());
+       return new CustomerView(this.name, this.lastName, this.email, this.role.name());
     }
 
     protected Customer() {

@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.db.scrumtrackerapi.models.Customer;
 import com.db.scrumtrackerapi.models.dtos.CustomerDTO;
 import com.db.scrumtrackerapi.models.view.CustomerView;
-import com.db.scrumtrackerapi.repositories.CustomerRepository;
+import com.db.scrumtrackerapi.services.CustomerService;
 
 @RestController
 public class RegisterCustomerController {
     
     @Autowired
-    CustomerRepository customerRepository;
+    CustomerService customerService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -30,14 +30,17 @@ public class RegisterCustomerController {
 
         try {
             Customer customer = customerDTO.toCustomer(passwordEncoder);
-            savedCustomer = customerRepository.save(customer);
+            savedCustomer = customerService.save(customer);
             
-            if (savedCustomer.getId() > 0){
+            if (savedCustomer != null){
                 response = ResponseEntity
                         .status(HttpStatus.CREATED)
                         .body(savedCustomer.toView());
+            } else {
+                response = ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null);
             }
-
         } catch (Exception ex) {
             response = ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -90,7 +90,7 @@ public class CustomerDTO {
     }
 
 
-    protected CustomerDTO() {
+    public CustomerDTO() {
     }
 
 

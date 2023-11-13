@@ -3,6 +3,7 @@ package com.db.scrumtrackerapi.repositories;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class CustomerRepositoryTest {
     }
 
     @Test
+    @DisplayName("Assert Find By Email Is Working Correctly")
     void assertFindCustomerByEmail() {
         Customer actualCustomer = customerRepository.findByEmail("joao@email.com").get(0);
         assertEquals(expectedCustomer, actualCustomer);
