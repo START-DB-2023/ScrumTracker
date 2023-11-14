@@ -3,15 +3,18 @@ import '@testing-library/jest-dom'
 import Login from '.'
 import { ThemeProvider } from 'styled-components';
 import { defaultTheme } from '../../styles/themes/default';
+import { GlobalContextProvider } from '../../contexts/UserContext';
 
 
 describe ('should render login', () => {
 
     beforeAll(() => {
         render(
-            <ThemeProvider theme={defaultTheme}>
-                <Login />
-            </ThemeProvider>
+            <GlobalContextProvider>
+                <ThemeProvider theme={defaultTheme}>
+                    <Login/>
+                </ThemeProvider>
+            </GlobalContextProvider>
         );
     });
     

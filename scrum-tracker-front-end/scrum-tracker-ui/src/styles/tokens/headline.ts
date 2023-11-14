@@ -8,13 +8,6 @@ import {
   } from "./index";
   
   const headline = {
-    "4xl": {
-      fontFamily: FONTFAMILY.fontPrimary,
-      fontWeight: FONTWEIGHT.bold,
-      fontSize: FONTSIZE["4xl"],
-      letterSpacing: LETTERSPACING.trackingTight,
-      lineHeight: LINEHEIGHT.normal,
-    },
     "3xl": {
       fontFamily: FONTFAMILY.fontPrimary,
       fontWeight: FONTWEIGHT.bold,
@@ -26,6 +19,13 @@ import {
       fontFamily: FONTFAMILY.fontPrimary,
       fontWeight: FONTWEIGHT.bold,
       fontSize: FONTSIZE["2xl"],
+      letterSpacing: LETTERSPACING.trackingTight,
+      lineHeight: LINEHEIGHT.normal,
+    },
+    xl: {
+      fontFamily: FONTFAMILY.fontPrimary,
+      fontWeight: FONTWEIGHT.bold,
+      fontSize: FONTSIZE.xl,
       letterSpacing: LETTERSPACING.trackingTight,
       lineHeight: LINEHEIGHT.normal,
     },

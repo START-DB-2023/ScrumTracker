@@ -20,6 +20,7 @@ body {
     -webkit-font-smoothing: antialiased;
     font-family: 'Poppins', sans-serif;
     color: ${props => props.theme.COLORS.Transparent};
+    overflow:hidden; 
 }
 
 `
