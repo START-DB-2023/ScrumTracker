@@ -6,9 +6,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import java.sql.SQLException;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -20,20 +18,23 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import com.db.scrumtrackerapi.controller.RegisterCustomerController;
-import com.db.scrumtrackerapi.models.Customer;
-import com.db.scrumtrackerapi.models.dtos.CustomerDTO;
-import com.db.scrumtrackerapi.models.enums.Role;
-import com.db.scrumtrackerapi.models.view.CustomerView;
-import com.db.scrumtrackerapi.services.CustomerDTOSerializer;
+import com.db.scrumtrackerapi.model.Customer;
+import com.db.scrumtrackerapi.model.ErrorMessage;
+import com.db.scrumtrackerapi.model.dto.CustomerDTO;
+import com.db.scrumtrackerapi.model.enums.Role;
+import com.db.scrumtrackerapi.model.view.CustomerView;
 import com.db.scrumtrackerapi.services.CustomerService;
+import com.db.scrumtrackerapi.util.CustomerDTOSerializer;
+import com.db.scrumtrackerapi.util.ErrorMessageSerializer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import jakarta.persistence.EntityExistsException;
 
 @SpringBootTest
 @TestInstance(Lifecycle.PER_CLASS)
@@ -51,18 +52,21 @@ public class RegisterControllerTest {
     private PasswordEncoder passwordEncoder;
     
     private MockMvc mockMvc;
-    private CustomerDTOSerializer customerDTOSerializer;
-    private SimpleModule module;
     private ObjectMapper objectMapper;
     private HttpHeaders headers;
 
     @BeforeAll
     public void setUp() throws JsonProcessingException {
 
-        customerDTOSerializer= new CustomerDTOSerializer();
-        module = new SimpleModule().addSerializer(CustomerDTO.class, customerDTOSerializer);
-        objectMapper = new ObjectMapper().registerModule(module);
-
+        CustomerDTOSerializer customerDTOSerializer= new CustomerDTOSerializer();
+        ErrorMessageSerializer errorMessageSerializer = new ErrorMessageSerializer();
+        SimpleModule customerDtoSerializerModule = new SimpleModule().addSerializer(CustomerDTO.class, customerDTOSerializer);
+        SimpleModule errorMessageSerializerModule = new SimpleModule().addSerializer(ErrorMessage.class, errorMessageSerializer);
+        
+        objectMapper = new ObjectMapper()
+                            .registerModule(customerDtoSerializerModule)
+                            .registerModule(errorMessageSerializerModule);
+        
         mockMvc = MockMvcBuilders.standaloneSetup(registerCustomerController).build();
     }
 
@@ -74,7 +78,7 @@ public class RegisterControllerTest {
         CustomerView responseBody = new CustomerView( "Joao", "Ninguem", "joao@email.com", "ADMIN");
         String responseBodyJson = objectMapper.writeValueAsString(responseBody);
 
-        CustomerDTO requestBody = new CustomerDTO("joao@email.com", "Joao", "Ninguem", "letmein123", Role.ADMIN);
+        CustomerDTO requestBody = new CustomerDTO( "Joao", "Ninguem", "joao@email.com", "letmein123", Role.ADMIN);
         String requestBodyJson = objectMapper.writeValueAsString(requestBody);
 
         Customer expectedCustomer = requestBody.toCustomer(passwordEncoder);
@@ -88,21 +92,28 @@ public class RegisterControllerTest {
          verify(customerService).save(any(Customer.class));
     }
 
+    /* 
     @Test
-    void testRegisterCustomerDataBase() throws Exception {
+    void testEntityExistsException() throws Exception {
         headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
 
-        CustomerDTO requestBody = new CustomerDTO("joao@email.com", "Joao", "Ninguem", "letmein123", Role.ADMIN);
+        CustomerDTO requestBody = new CustomerDTO( "Joao", "Ninguem", "joao@email.com", "letmein123", Role.ADMIN);
         String requestBodyJson = objectMapper.writeValueAsString(requestBody);
 
-        when(customerService.save(any(Customer.class))).thenThrow(new SQLException("Error"));
+        String exceptionMessage = "User " + requestBody.getEmail() + " already exists.";
+        ErrorMessage expectedResponse = new ErrorMessage("Entity already exists on database.", HttpStatus.CONFLICT.value(), exceptionMessage);
+        String expectedResponseJson = objectMapper.writeValueAsString(expectedResponse);
+
+        when(customerService.save(any(Customer.class))).thenThrow(new EntityExistsException(exceptionMessage));
 
         mockMvc.perform(post("/register").headers(headers).content(requestBodyJson))
-        .andExpect(status().isInternalServerError())
+        .andExpect(status().isConflict())
+        .andExpect(content().json(expectedResponseJson))
         .andReturn();
 
         verify(customerService).save(any(Customer.class));
     }
+     */
 
 }

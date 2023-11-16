@@ -6,7 +6,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,8 +17,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.db.scrumtrackerapi.models.Customer;
-import com.db.scrumtrackerapi.models.enums.Role;
+import com.db.scrumtrackerapi.model.Customer;
+import com.db.scrumtrackerapi.model.enums.Role;
 import com.db.scrumtrackerapi.repositories.CustomerRepository;
 
 @SpringBootTest
@@ -40,7 +39,7 @@ public class CustomerServiceTest {
     @BeforeEach
     void setUp() {
         email = "joao@email.com";
-        expectedCustomer = new Customer(email,"Joao","Ninguem","letmein123",Role.ADMIN);  
+        expectedCustomer = new Customer("Joao","Ninguem", email,"letmein123",Role.ADMIN);  
     }
 
     @Test
@@ -59,7 +58,7 @@ public class CustomerServiceTest {
     public void testFindByEmail(){
         when(customerRepository.findByEmail(eq(email))).thenReturn(List.of(expectedCustomer));
 
-        Customer actualCustomer = customerService.findByEmail(email);
+        Customer actualCustomer = customerService.findByEmail(email).get();
         assertEquals(expectedCustomer, actualCustomer);
     }
 

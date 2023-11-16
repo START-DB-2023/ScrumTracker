@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.http.HttpHeaders;
 import com.db.scrumtrackerapi.controller.CustomerController;
-import com.db.scrumtrackerapi.models.view.CustomerView;
+import com.db.scrumtrackerapi.model.view.CustomerView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

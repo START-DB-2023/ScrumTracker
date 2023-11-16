@@ -14,10 +14,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.db.scrumtrackerapi.models.dtos.CustomerDTO;
-import com.db.scrumtrackerapi.models.enums.Role;
-import com.db.scrumtrackerapi.models.view.CustomerView;
-import com.db.scrumtrackerapi.services.CustomerDTOSerializer;
+import com.db.scrumtrackerapi.model.dto.CustomerDTO;
+import com.db.scrumtrackerapi.model.enums.Role;
+import com.db.scrumtrackerapi.model.view.CustomerView;
+import com.db.scrumtrackerapi.util.CustomerDTOSerializer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -61,5 +61,6 @@ public class CustomerControllerIT {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(expectedResponse, response.getBody());
     }
+    
 
 }

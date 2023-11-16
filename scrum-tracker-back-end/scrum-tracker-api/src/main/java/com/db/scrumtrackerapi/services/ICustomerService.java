@@ -1,10 +1,12 @@
 package com.db.scrumtrackerapi.services;
 
-import com.db.scrumtrackerapi.models.Customer;
+import java.util.Optional;
+
+import com.db.scrumtrackerapi.model.Customer;
 
 public interface ICustomerService {
     
-    Customer findByEmail(String email);
+    Optional<Customer> findByEmail(String email);
 
     Customer save(Customer customer);
 }
