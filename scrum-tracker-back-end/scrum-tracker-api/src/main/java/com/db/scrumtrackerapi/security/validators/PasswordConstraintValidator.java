@@ -1,4 +1,4 @@
-package com.db.scrumtrackerapi.security.password;
+package com.db.scrumtrackerapi.security.validators;
 
 import java.util.Arrays;
 import java.util.List;

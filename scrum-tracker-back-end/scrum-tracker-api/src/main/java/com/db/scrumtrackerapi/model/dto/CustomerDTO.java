@@ -3,7 +3,8 @@ package com.db.scrumtrackerapi.model.dto;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.db.scrumtrackerapi.model.Customer;
 import com.db.scrumtrackerapi.model.enums.Role;
-import com.db.scrumtrackerapi.security.password.ValidPassword;
+import com.db.scrumtrackerapi.security.validators.ValidPassword;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

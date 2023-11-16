@@ -1,10 +1,10 @@
-package com.db.scrumtrackerapi.security;
+package com.db.scrumtrackerapi.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -29,13 +29,14 @@ public class SecurityFilters {
                 .cors(withDefaults())
                 //should be enabled in production environment
                 .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> 
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
+                                .requestMatchers(new AntPathRequestMatcher("/login", "POST")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/hello")).authenticated()
                                 .anyRequest().permitAll()
-                )
-                .formLogin(withDefaults())
-                .httpBasic(withDefaults());
+                );
         return http.build();
     }
 

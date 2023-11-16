@@ -1,4 +1,4 @@
-package com.db.scrumtrackerapi.security.password;
+package com.db.scrumtrackerapi.security.validators;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

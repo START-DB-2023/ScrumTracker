@@ -1,4 +1,4 @@
-package com.db.scrumtrackerapi.security;
+package com.db.scrumtrackerapi.security.service;
 
 import java.util.ArrayList;
 import java.util.List;

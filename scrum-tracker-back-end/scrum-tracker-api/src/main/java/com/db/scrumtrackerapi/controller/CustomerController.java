@@ -22,7 +22,6 @@ import com.db.scrumtrackerapi.services.CustomerService;
  * <p> The base URL path for all endpoints defined in this controller is ("/customer").
  */
 @RestController
-@RequestMapping("/customer")
 public class CustomerController {
     
     /**
@@ -42,7 +41,7 @@ public class CustomerController {
      * @return ResponseEntity containing the customer information in the response body
      * if the customer is found, or a 404 NOT_FOUND status if the customer is not found.
      */
-    @RequestMapping(value="", method=RequestMethod.GET)
+    @RequestMapping(value="/customer", method=RequestMethod.GET)
     public ResponseEntity<CustomerView> getCustomerByEmail(@RequestParam("email") String email) {
         Optional<Customer> customer = customerService.findByEmail(email);
         if (customer.isPresent()) {

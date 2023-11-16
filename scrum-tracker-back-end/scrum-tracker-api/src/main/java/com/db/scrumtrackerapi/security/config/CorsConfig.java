@@ -1,4 +1,4 @@
-package com.db.scrumtrackerapi.security;
+package com.db.scrumtrackerapi.security.config;
 
 import java.util.Arrays;
 

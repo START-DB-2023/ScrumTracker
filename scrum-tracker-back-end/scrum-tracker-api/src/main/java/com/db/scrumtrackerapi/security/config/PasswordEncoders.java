@@ -1,4 +1,4 @@
-package com.db.scrumtrackerapi.security.password;
+package com.db.scrumtrackerapi.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
