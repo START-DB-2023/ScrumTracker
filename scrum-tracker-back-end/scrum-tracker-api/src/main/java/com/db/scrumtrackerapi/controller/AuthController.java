@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.db.scrumtrackerapi.model.dto.LoginDTO;
 import com.db.scrumtrackerapi.security.service.TokenService;
@@ -24,7 +25,7 @@ public class AuthController {
     @Autowired
     private TokenService tokenService;
 
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(@RequestBody LoginDTO login) throws AuthenticationException {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = 
             new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword());
