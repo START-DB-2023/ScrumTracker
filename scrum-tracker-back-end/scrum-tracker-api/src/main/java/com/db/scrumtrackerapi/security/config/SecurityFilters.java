@@ -6,8 +6,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import static org.springframework.security.config.Customizer.withDefaults;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Configuration class for Spring Security filters, providing security settings for the application.
@@ -15,6 +18,9 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableWebSecurity
 public class SecurityFilters {
+
+    @Autowired
+    private FilterToken filterToken;
     
     /**
      * Configures the default security filter chain with specific settings.
@@ -36,6 +42,7 @@ public class SecurityFilters {
                                 .requestMatchers(new AntPathRequestMatcher("/login", "POST")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/hello")).authenticated()
                                 .anyRequest().permitAll()
+                                .and().addFilterBefore(filterToken, UsernamePasswordAuthenticationFilter.class)
                 );
         return http.build();
     }
