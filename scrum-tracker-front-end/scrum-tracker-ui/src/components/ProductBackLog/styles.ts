@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const ContainerProduct = styled.div`
+export const ContainerProduct = styled.section`
 
 width: 88%;
 background-color: ${props => props.theme.COLORS.white};
@@ -81,3 +81,23 @@ table{
 }
 
 `
+
+const STATUS_COLOR = {
+  medium: "yellow-200",
+  low: "green-300",
+  high: "red-500",
+} as const;
+
+interface StatusProps {
+  $statusColor: keyof typeof STATUS_COLOR;
+}
+
+export const Status = styled.span<StatusProps>`
+  display: flex;
+  align-items: center;
+  justify-content:center;
+
+  border-radius:${props => props.theme.BORDERRADIUS.lg};
+  background-color: ${(props) =>
+      props.theme.COLORS[STATUS_COLOR[props.$statusColor]]};
+`;

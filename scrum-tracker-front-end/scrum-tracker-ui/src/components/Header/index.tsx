@@ -37,7 +37,7 @@ const Header = () => {
             {modalOpenSignOut && <ModalSignOut />}
           </div>
           <span>
-            Fulano <br /> Souza
+            {localStorage.getItem("name")} <br /> {localStorage.getItem("lastName")}
           </span>
         </LoginContent>
       </HeaderContent>

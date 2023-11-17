@@ -11,9 +11,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.db.scrumtrackerapi.model.ErrorMessage;
 import jakarta.persistence.EntityExistsException;
+import jakarta.validation.ConstraintViolationException;
 
 @ControllerAdvice
 public class ExceptionControllerAdvice {
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorMessage> manipularExcecoesDeValidacao(ConstraintViolationException ex) {
+        ErrorMessage response = new ErrorMessage("Validation failed.", HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+        return ResponseEntity.badRequest().body(response);
+    }
     
     @ExceptionHandler(EntityExistsException.class)
     public ResponseEntity<ErrorMessage> handleEntityExistsException(EntityExistsException ex) {      

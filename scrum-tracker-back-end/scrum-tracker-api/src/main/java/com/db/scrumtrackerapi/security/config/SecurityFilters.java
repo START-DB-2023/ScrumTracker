@@ -32,7 +32,6 @@ public class SecurityFilters {
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(withDefaults())
                 //should be enabled in production environment
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> 

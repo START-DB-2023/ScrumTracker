@@ -3,11 +3,27 @@ import { useEffect } from 'react';
 import { useGlobalContext } from '../../contexts/UserContext';
 import { HomeContainer, NavBar, HomeContent } from './styles';
 import ModalRegisterProduct from '../../components/ModalRegisterProduct';
+import Projects from '../../components/Projects';
+import ProductBackLog from '../../components/ProductBackLog';
 
 
 export default function Home(){
 
-    const {openModal, setOpenModal} = useGlobalContext();
+    const { openModal, setOpenModal, openComponentProject, setOpenComponentProject, openComponentProduct, setOpenComponentProduct } = useGlobalContext();
+
+    function handleComponent(event: { event?: Event | undefined }) {
+
+        const saida = (event.event?.target as HTMLElement).textContent;
+        if (saida === "Home") {
+            setOpenComponentProject(true);
+            setOpenComponentProduct(false)
+        } else if (saida === "Product Backlog") {
+            setOpenComponentProject(false);
+            setOpenComponentProduct(true)
+        }
+
+    }
+
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -30,8 +46,8 @@ export default function Home(){
         <HomeContainer >
             <NavBar>
                 <ul>
-                    <li>Home</li>
-                    <li>Product Backlog</li>
+                <li onClick={() => handleComponent({ event })}>Home</li>
+                        <li onClick={() => handleComponent({ event })}>Product Backlog</li>
                     <li>Sprints</li>
                 </ul>
                 
@@ -42,7 +58,8 @@ export default function Home(){
             
             <div>
                 <HomeContent>
-                    <h1>Meus projetos</h1>
+                {openComponentProject && <Projects />}
+                        {openComponentProduct && <ProductBackLog />}
                 </HomeContent>
             </div>
         </HomeContainer>

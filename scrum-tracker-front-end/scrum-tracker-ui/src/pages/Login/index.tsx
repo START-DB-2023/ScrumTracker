@@ -1,29 +1,70 @@
-import {Container, FormContainer} from "./styles";
+import { Container, FormContainer } from "./styles";
 import Logo from '../../assets/Logo.svg';
 import IconEmail from '../../assets/email.svg';
 import IconSenha from '../../assets/senha.svg';
-import {useState} from "react";
+import { useState } from "react";
 import api from "../../connections/api";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { validateEmail } from "../../utlis/Validation";
+import { useNavigate } from "react-router-dom";
+import { tokenService } from "../../utlis/TokenService";
+import Spinner from "../../components/Spinner";
+import { AxiosError } from 'axios';
+
 
 export default function Login(){
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("");
+    const [loading,setLoading] = useState<boolean>(false);
+
+    const navigate = useNavigate();
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault()
+       
+        //Valida o Campo Email
+        const validationEmail = validateEmail(email)
+        if(!validationEmail.isValid){
+            return(
+            toast.error(validationEmail.message, {
+        }))}
+
+        if(!password){
+            return(
+                toast.error("Campo Senha é obrigatório")
+            )
+        }
         
         try {
-            const response = await api.get("/hello/authenticated",{
-            headers : {
-                authorization: `Basic ${btoa(email+":"+password)}`
-            }}); 
+            setLoading(true);
+            const response = await api.post("/login",{
+                    email: email,
+                    password: password 
+                });    
+            const token = response.data.token;
 
-            console.log(response);
-            
-    } catch(error){
-        return console.log(error);
-        
-    }
+            //salvando no localStorage
+            tokenService.save("token", token)
+            tokenService.save("name", response.data.name)
+            tokenService.save("lastName", response.data.lastName)
+
+                if(tokenService.get("token")){
+                    setLoading(false);
+                    toast.success("Login efetuado com sucesso", {});
+                    navigate("/");
+                }  
+
+        } catch(error){
+            //console.log(error)
+            if(error instanceof AxiosError && error.response?.data.exceptionMessage === "Bad credentials."){
+                return (
+                    setLoading(false),
+                    toast.error("Email ou senha inválido", {
+                    })
+                )
+            }
+        }
 }
 
     return (
@@ -38,7 +79,7 @@ export default function Login(){
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="">E-mail:</label>
-                        <input value={email} onChange={(e:React.ChangeEvent<HTMLInputElement>)=>{setEmail(e.target.value)}} type="email" placeholder="Digite seu e-mail"/>
+                        <input value={email} onChange={(e:React.ChangeEvent<HTMLInputElement>)=>{setEmail(e.target.value)}} type="text" placeholder="Digite seu e-mail"/>
                         <img src={IconEmail} alt="Ícone de e-mail"/>
                     </div>
                     <div>
@@ -46,7 +87,8 @@ export default function Login(){
                         <input value={password} type="password" onChange={(e:React.ChangeEvent<HTMLInputElement>)=>{setPassword(e.target.value)}} placeholder="Digite sua senha"/>
                         <img src={IconSenha} alt="Ícone de senha" />
                     </div>
-                    <button type="submit">Entrar</button>
+                    {loading ? <Spinner /> : <button type="submit">Entrar</button> }
+                    
                 </form>
             </FormContainer>
         </Container>

@@ -1,4 +1,4 @@
-import { ContainerProduct } from './styles';
+import { ContainerProduct, Status } from './styles';
 import { teste } from './list'
 
 export default function ProductBackLog() {
@@ -18,11 +18,11 @@ export default function ProductBackLog() {
                     {teste.map((product) => {
                         return (
                             <tr key={product.id}>
-                                <td><h1>{product.nome}</h1></td>
+                                <td><h1>{product.name}</h1></td>
                                 <td><h1 className='history'>{product.history}</h1></td>
                                 <td><h1>{product.status}</h1></td>
-                                <td><h1>{product.prioridade}</h1></td>
-                                <td><h1>{product.estimativa}</h1></td>
+                                <td><Status $statusColor={product.priority}><h1>{product.priority}</h1></Status></td>
+                                <td><h1>{product.estimate}</h1></td>
                             </tr>
                         )
                     })}

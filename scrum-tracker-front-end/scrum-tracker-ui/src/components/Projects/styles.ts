@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const ProjectsMain = styled.div`
+export const ProjectsMain = styled.section`
 
 h1{
     ${props => props.theme.HEADLINE.xl}
