@@ -49,7 +49,7 @@ public class SprintService implements ISprintService {
      * @throws EntityNotFoundException If the sprint with the given ID is not found or is not active.
      */
     @Override
-    public Sprint updateSprint(Long id, Sprint sprint) throws EntityNotFoundException {
+    public Sprint update(Long id, Sprint sprint) throws EntityNotFoundException {
         Optional<Sprint> savedSprintOptional = sprintRepository.findById(id);
         if (savedSprintOptional.isPresent()) {
             Sprint savedSprint = savedSprintOptional.get().updateSprint(sprint);

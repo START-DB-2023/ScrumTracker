@@ -19,9 +19,9 @@ public class ProductDTO {
 
     private String vision;
 
-    private String state;
+    private String definitionOfDone;
 
-    private String ready;
+    private String definitionOfReady;
 
     private ProductBacklog productBacklog;
 
@@ -36,8 +36,8 @@ public class ProductDTO {
             this.client,
             this.objectives,
             this.vision,
-            this.state,
-            this.ready,
+            this.definitionOfDone,
+            this.definitionOfReady,
             this.productBacklog
         );
 
@@ -45,13 +45,13 @@ public class ProductDTO {
     }
 
 
-    public ProductDTO(String name, String client, String objectives, String vision, String state, String ready, ProductBacklog productBacklog) {
+    public ProductDTO(String name, String client, String objectives, String vision, String definitionOfDone, String definitionOfReady, ProductBacklog productBacklog) {
         this.name = name;
         this.client = client;
         this.objectives = objectives;
         this.vision = vision;
-        this.state = state;
-        this.ready = ready;
+        this.definitionOfDone = definitionOfDone;
+        this.definitionOfReady = definitionOfReady;
         this.productBacklog = productBacklog;
     }
     
@@ -92,20 +92,20 @@ public class ProductDTO {
         this.vision = vision;
     }
 
-    public String getState() {
-        return this.state;
+    public String getdefinitionOfDone() {
+        return this.definitionOfDone;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setdefinitionOfDone(String definitionOfDone) {
+        this.definitionOfDone = definitionOfDone;
     }
 
-    public String getReady() {
-        return this.ready;
+    public String getdefinitionOfReady() {
+        return this.definitionOfReady;
     }
 
-    public void setReady(String ready) {
-        this.ready = ready;
+    public void setdefinitionOfReady(String definitionOfReady) {
+        this.definitionOfReady = definitionOfReady;
     }
 
     public ProductBacklog getProductBacklog() {
@@ -132,8 +132,8 @@ public class ProductDTO {
                 Objects.equals(client, product.getClient()) &&
                 Objects.equals(objectives, product.getObjectives()) &&
                 Objects.equals(vision, product.getVision()) &&
-                Objects.equals(state, product.getState()) &&
-                Objects.equals(ready, product.getReady());
+                Objects.equals(definitionOfDone, product.getDefinitionOfDone()) &&
+                Objects.equals(definitionOfReady, product.getDefinitionOfReady());
     }
 
     /**
@@ -143,7 +143,7 @@ public class ProductDTO {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(name, client, objectives, vision, state, ready);
+        return Objects.hash(name, client, objectives, vision, definitionOfDone, definitionOfReady);
     }
 
     /**
@@ -158,8 +158,8 @@ public class ProductDTO {
                 ", client='" + getClient() + "'" +
                 ", objectives='" + getObjectives() + "'" +
                 ", vision='" + getVision() + "'" +
-                ", state='" + getState() + "'" +
-                ", ready='" + getReady() + "'" +
+                ", definitionOfDone='" + getdefinitionOfDone() + "'" +
+                ", definitionOfReady='" + getdefinitionOfReady() + "'" +
                 "}";
     }
 

@@ -2,6 +2,7 @@ package com.db.scrumtrackerapi.model;
 
 
 import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
@@ -39,16 +40,16 @@ public class Product extends BaseEntity {
     private String vision;
 
     /**
-     * The state of the product.
+     * Definition of ready of the product
      */
-    @Column(name = "state", nullable = true)
-    private String state;
+    @Column(name = "definitionOfReady", nullable = true)
+    private String definitionOfReady;
 
     /**
-     * The readiness status of the product.
+     * Definition of done of the product 
      */
-    @Column(name = "ready", nullable = true)
-    private String ready;
+    @Column(name = "definitionOfDone", nullable = true)
+    private String definitionOfDone;
 
     /**
      * The product backlog associated with the product.
@@ -68,8 +69,8 @@ public class Product extends BaseEntity {
         this.client = product.getClient();
         this.objectives = product.getObjectives();
         this.vision = product.getVision();
-        this.state = product.getState();
-        this.ready = product.getReady();
+        this.definitionOfReady = product.getDefinitionOfReady();
+        this.definitionOfDone = product.getDefinitionOfDone();
         return this;
     }
 
@@ -86,17 +87,17 @@ public class Product extends BaseEntity {
      * @param client        The client associated with the product.
      * @param objectives    The objectives of the product.
      * @param vision        The vision of the product.
-     * @param state         The state of the product.
-     * @param ready         The readiness status of the product.
+     * @param definitionOfReady         The definitionOfReady of the product.
+     * @param definitionOfDone         The readiness status of the product.
      * @param productBacklog The product backlog associated with the product.
      */
-    public Product(String name, String client, String objectives, String vision, String state, String ready, ProductBacklog productBacklog) {
+    public Product(String name, String client, String objectives, String vision, String definitionOfReady, String definitionOfDone, ProductBacklog productBacklog) {
         this.name = name;
         this.client = client;
         this.objectives = objectives;
         this.vision = vision;
-        this.state = state;
-        this.ready = ready;
+        this.definitionOfReady = definitionOfReady;
+        this.definitionOfDone = definitionOfDone;
         this.productBacklog = productBacklog;
         super.setActive(true);
         super.setTimestamp();
@@ -175,21 +176,23 @@ public class Product extends BaseEntity {
     }
 
     /**
-     * Gets the state of the product.
+     * Gets the definitionOfReady of the product.
      *
-     * @return The state of the product.
+     * @return The definitionOfReady of the product.
      */
-    public String getState() {
-        return this.state;
+    public String getDefinitionOfReady() {
+        return this.definitionOfReady
+;
     }
 
     /**
-     * Sets the state of the product.
+     * Sets the definitionOfReady of the product.
      *
-     * @param state The state to set.
+     * @param definitionOfReady The definitionOfReady to set.
      */
-    public void setState(String state) {
-        this.state = state;
+    public void setDefinitionOfReady(String definitionOfReady) {
+        this.definitionOfReady
+ = definitionOfReady;
     }
 
     /**
@@ -197,17 +200,17 @@ public class Product extends BaseEntity {
      *
      * @return The readiness status of the product.
      */
-    public String getReady() {
-        return this.ready;
+    public String getDefinitionOfDone() {
+        return this.definitionOfDone;
     }
 
     /**
      * Sets the readiness status of the product.
      *
-     * @param ready The readiness status to set.
+     * @param definitionOfDone The readiness status to set.
      */
-    public void setReady(String ready) {
-        this.ready = ready;
+    public void setDefinitionOfDone(String definitionOfDone) {
+        this.definitionOfDone = definitionOfDone;
     }
 
     /**
@@ -243,8 +246,8 @@ public class Product extends BaseEntity {
                 Objects.equals(client, product.getClient()) &&
                 Objects.equals(objectives, product.getObjectives()) &&
                 Objects.equals(vision, product.getVision()) &&
-                Objects.equals(state, product.getState()) &&
-                Objects.equals(ready, product.getReady());
+                Objects.equals(definitionOfReady, product.getDefinitionOfReady()) &&
+                Objects.equals(definitionOfDone, product.getDefinitionOfDone());
     }
 
     /**
@@ -254,7 +257,8 @@ public class Product extends BaseEntity {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(name, client, objectives, vision, state, ready);
+        return Objects.hash(name, client, objectives, vision, definitionOfReady
+, definitionOfDone);
     }
 
     /**
@@ -269,8 +273,9 @@ public class Product extends BaseEntity {
                 ", client='" + getClient() + "'" +
                 ", objectives='" + getObjectives() + "'" +
                 ", vision='" + getVision() + "'" +
-                ", state='" + getState() + "'" +
-                ", ready='" + getReady() + "'" +
+                ", definitionOfReady='" + getDefinitionOfReady
+        () + "'" +
+                ", definitionOfDone='" + getDefinitionOfDone() + "'" +
                 "}";
     }
 }

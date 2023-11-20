@@ -83,5 +83,15 @@ public class ProductBacklogService implements IProductBacklogService {
             throw new EntityNotFoundException("ProductBacklog with id " + id + " was not found or is not active.");
         }
     }
-}
 
+	 @Override
+    public ProductBacklog update(Long id, ProductBacklog productBacklog) {
+        Optional<ProductBacklog> savedProductBacklog = productBacklogRepository.findById(id);
+        if (savedProductBacklog.isPresent() && savedProductBacklog.get().isActive()) {
+            ProductBacklog newItemBacklog = savedProductBacklog.get().updateProductBacklog(productBacklog);
+            return productBacklogRepository.save(newItemBacklog);
+        } else {
+            throw new EntityNotFoundException("ProductBacklog with id " + productBacklog.getId() + " was not found.");
+        }
+    }
+}

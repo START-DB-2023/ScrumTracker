@@ -10,7 +10,7 @@ public interface ISprintService {
 
     Sprint save(Sprint sprint);
 
-    Sprint updateSprint(Long id, Sprint sprint);
+    Sprint update(Long id, Sprint sprint);
 
     Sprint findById(Long id);
 

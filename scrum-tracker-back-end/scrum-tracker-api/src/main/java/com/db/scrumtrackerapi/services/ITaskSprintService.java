@@ -8,7 +8,7 @@ public interface ITaskSprintService {
 
     TaskSprint save(TaskSprint taskSprint);
 
-    TaskSprint updateTaskSprint(Long id, TaskSprint taskSprint);
+    TaskSprint update(Long id, TaskSprint taskSprint);
 
     List<TaskSprint> findBySprintId(Long SprintId);
 

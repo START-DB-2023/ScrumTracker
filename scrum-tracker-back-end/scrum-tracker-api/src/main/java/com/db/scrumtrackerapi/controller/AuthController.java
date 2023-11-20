@@ -46,7 +46,7 @@ public class AuthController {
                 Authentication authenticate = this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
                 UserDetails user = (UserDetails) authenticate.getPrincipal();
                 String token = tokenService.generateToken(user);
-                TokenMessageDTO responseBody = new TokenMessageDTO(token, customer.get().getName(), customer.get().getLastName());
+                TokenMessageDTO responseBody = new TokenMessageDTO(token, customer.get().getName(), customer.get().getLastName(), customer.get().getRole());
                 return ResponseEntity.ok().body(responseBody);
             } catch(BadCredentialsException ex) {
                 throw new BadPasswordException("The inserted password is wrong.");

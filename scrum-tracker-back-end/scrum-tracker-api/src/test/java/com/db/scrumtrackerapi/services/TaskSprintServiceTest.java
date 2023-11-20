@@ -58,7 +58,7 @@ public class TaskSprintServiceTest {
 
         when(taskSprintRepository.save(eq(expectedTaskSprint))).thenReturn(expectedTaskSprint);
 
-        TaskSprint actualTaskSprint = taskSprintService.updateTaskSprint(1L, expectedTaskSprint);
+        TaskSprint actualTaskSprint = taskSprintService.update(1L, expectedTaskSprint);
         
         assertEquals(expectedTaskSprint, actualTaskSprint);
     }

@@ -25,6 +25,11 @@ public class ProductController{
         return ResponseEntity.ok().body(productService.findById(id));
     }
 
+    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    ResponseEntity<Product> deactivateById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(productService.findById(id));
+    }
+
     @RequestMapping(value = "/", method=RequestMethod.GET)
     ResponseEntity<Product> getLast(){
         return ResponseEntity.ok().body(productService.getLast());

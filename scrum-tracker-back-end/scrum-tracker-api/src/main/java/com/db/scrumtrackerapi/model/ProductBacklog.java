@@ -87,6 +87,12 @@ public class ProductBacklog extends BaseEntity {
         this.itensBacklog = items;
     }
 
+    public ProductBacklog updateProductBacklog(ProductBacklog productBacklog) {
+        this.itensBacklog = productBacklog.getItensBacklog();
+        this.product = productBacklog.getProduct();
+        return this;
+    }
+
     /**
      * Overridden to compare equality based on the product and the list of items.
      * 

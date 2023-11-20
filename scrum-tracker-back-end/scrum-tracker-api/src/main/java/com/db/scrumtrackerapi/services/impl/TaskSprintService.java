@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.db.scrumtrackerapi.exceptions.EntityNotFoundException;
 import com.db.scrumtrackerapi.model.TaskSprint;
 import com.db.scrumtrackerapi.repositories.TaskSprintRepository;
@@ -49,7 +50,7 @@ public class TaskSprintService implements ITaskSprintService {
      * @throws EntityNotFoundException If the task sprint with the given ID is not found.
      */
     @Override
-    public TaskSprint updateTaskSprint(Long id, TaskSprint taskSprint) throws EntityNotFoundException {
+    public TaskSprint update(Long id, TaskSprint taskSprint) throws EntityNotFoundException {
         Optional<TaskSprint> savedTaskSprintOptional = taskSprintRepository.findById(id);
         if (savedTaskSprintOptional.isPresent()) {
             TaskSprint savedTaskSprint = savedTaskSprintOptional.get().updateTaskSprint(taskSprint);

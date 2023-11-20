@@ -39,7 +39,7 @@ public class SprintServiceTest {
 
         when(sprintRepository.save(eq(expectedSprint))).thenReturn(expectedSprint);
 
-        Sprint actualSpring = sprintService.updateSprint(1L, expectedSprint);
+        Sprint actualSpring = sprintService.update(1L, expectedSprint);
         
         assertEquals(expectedSprint, actualSpring);
     }

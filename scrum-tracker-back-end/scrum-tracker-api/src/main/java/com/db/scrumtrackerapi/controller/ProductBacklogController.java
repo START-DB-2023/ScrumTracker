@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.db.scrumtrackerapi.model.ProductBacklog;
 import com.db.scrumtrackerapi.model.dto.ProductBacklogDTO;
 import com.db.scrumtrackerapi.services.impl.ProductBacklogService;
@@ -18,10 +19,14 @@ public class ProductBacklogController{
     @Autowired
     ProductBacklogService productBacklogService;
 
-
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
     ResponseEntity<ProductBacklog> getById(@PathVariable Long id) {
         return ResponseEntity.ok().body(productBacklogService.findById(id));
+    }
+
+    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    ResponseEntity<ProductBacklog> deactivateById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(productBacklogService.desactivateById(id));
     }
 
     @RequestMapping(value="/", method=RequestMethod.POST)
