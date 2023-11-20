@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.db.scrumtrackerapi.model.Customer;
 import com.db.scrumtrackerapi.model.view.CustomerView;
-import com.db.scrumtrackerapi.services.CustomerService;
+import com.db.scrumtrackerapi.services.impl.CustomerService;
 
 /**
  * Controller class for handling customer-related HTTP requests.

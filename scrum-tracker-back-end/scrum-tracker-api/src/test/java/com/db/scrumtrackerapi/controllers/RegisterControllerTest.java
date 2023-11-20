@@ -22,11 +22,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.db.scrumtrackerapi.controller.RegisterCustomerController;
 import com.db.scrumtrackerapi.model.Customer;
-import com.db.scrumtrackerapi.model.ErrorMessage;
 import com.db.scrumtrackerapi.model.dto.CustomerDTO;
+import com.db.scrumtrackerapi.model.dto.ErrorMessageDTO;
 import com.db.scrumtrackerapi.model.enums.Role;
 import com.db.scrumtrackerapi.model.view.CustomerView;
-import com.db.scrumtrackerapi.services.CustomerService;
+import com.db.scrumtrackerapi.services.impl.CustomerService;
 import com.db.scrumtrackerapi.util.CustomerDTOSerializer;
 import com.db.scrumtrackerapi.util.ErrorMessageSerializer;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -58,7 +58,7 @@ public class RegisterControllerTest {
         CustomerDTOSerializer customerDTOSerializer= new CustomerDTOSerializer();
         ErrorMessageSerializer errorMessageSerializer = new ErrorMessageSerializer();
         SimpleModule customerDtoSerializerModule = new SimpleModule().addSerializer(CustomerDTO.class, customerDTOSerializer);
-        SimpleModule errorMessageSerializerModule = new SimpleModule().addSerializer(ErrorMessage.class, errorMessageSerializer);
+        SimpleModule errorMessageSerializerModule = new SimpleModule().addSerializer(ErrorMessageDTO.class, errorMessageSerializer);
         
         objectMapper = new ObjectMapper()
                             .registerModule(customerDtoSerializerModule)

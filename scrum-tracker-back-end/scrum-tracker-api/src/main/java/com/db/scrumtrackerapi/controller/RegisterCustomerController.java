@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.db.scrumtrackerapi.model.Customer;
 import com.db.scrumtrackerapi.model.dto.CustomerDTO;
 import com.db.scrumtrackerapi.model.view.CustomerView;
-import com.db.scrumtrackerapi.services.CustomerService;
+import com.db.scrumtrackerapi.services.impl.CustomerService;
+
+import jakarta.validation.Valid;
 
 /**
  * Controller class for handling customer registration.
@@ -37,7 +39,7 @@ public class RegisterCustomerController {
      *         registration is successful.
      */
     @RequestMapping(value="", method=RequestMethod.POST, consumes = "application/json" )
-    public ResponseEntity<CustomerView> registerUser(@RequestBody CustomerDTO customerDTO){
+    public ResponseEntity<CustomerView> registerUser(@Valid @RequestBody CustomerDTO customerDTO){
         
         Customer customer = customerDTO.toCustomer(passwordEncoder);
         Customer savedCustomer = customerService.save(customer);
