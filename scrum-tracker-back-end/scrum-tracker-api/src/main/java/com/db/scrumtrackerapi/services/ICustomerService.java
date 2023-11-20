@@ -9,4 +9,8 @@ public interface ICustomerService {
     Optional<Customer> findByEmail(String email);
 
     Customer save(Customer customer);
+
+    void deactivateByEmail(String email);
+
+    Customer update(Customer customer);
 }

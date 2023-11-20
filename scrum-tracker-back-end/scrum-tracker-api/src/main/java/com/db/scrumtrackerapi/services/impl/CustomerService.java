@@ -1,14 +1,14 @@
-package com.db.scrumtrackerapi.services;
+package com.db.scrumtrackerapi.services.impl;
 
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
+import com.db.scrumtrackerapi.exceptions.EntityNotFoundException;
 import com.db.scrumtrackerapi.model.Customer;
 import com.db.scrumtrackerapi.repositories.CustomerRepository;
-
-import jakarta.persistence.EntityExistsException;
+import com.db.scrumtrackerapi.services.ICustomerService;
 
 /**
  * Service class for managing customer-related operations.
@@ -41,16 +41,33 @@ public class CustomerService implements ICustomerService {
      *
      * @param customer The customer entity to save.
      * @return Saved customer if successful.
-     * @throws EntityExistsException case the email is already used.
      */
     @Override
     public Customer save(Customer customer) {
-        try {
-            return customerRepository.save(customer);
-        }
-        catch (DataIntegrityViolationException e) {
-            throw new EntityExistsException("User " + customer.getEmail() + " already exists.");
+        return customerRepository.save(customer);
+    }
+
+
+    /**
+     * Deactivate a {@link customer} entity based on the provided ID.
+     *
+     * @param id The ID of the {@link customer} entity to be retrieved.
+     * @return The {@link customer} entity.
+     * @throws EntityNotFoundException If the {@link customer} with the given ID is not found.
+     */
+    @Override
+    public void deactivateByEmail(String email) {
+        List<Customer> customer = customerRepository.findByEmail(email);
+        if (!customer.isEmpty() && customer.get(0).isActive()) {
+            customer.get(0).setActive(false);
+        } else {
+            throw new EntityNotFoundException("Customer with email " + email + " was not found.");
         }
     }
-    
+
+    @Override
+    public Customer update(Customer customer) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
 }
