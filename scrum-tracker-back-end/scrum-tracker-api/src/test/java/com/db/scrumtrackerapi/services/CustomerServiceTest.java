@@ -20,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.db.scrumtrackerapi.model.Customer;
 import com.db.scrumtrackerapi.model.enums.Role;
 import com.db.scrumtrackerapi.repositories.CustomerRepository;
+import com.db.scrumtrackerapi.services.impl.CustomerService;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
