@@ -4,16 +4,16 @@ import java.io.IOException;
 
 import org.springframework.stereotype.Component;
 
-import com.db.scrumtrackerapi.model.ErrorMessage;
+import com.db.scrumtrackerapi.model.dto.ErrorMessageDTO;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 @Component
-public class ErrorMessageSerializer extends JsonSerializer<ErrorMessage> {
+public class ErrorMessageSerializer extends JsonSerializer<ErrorMessageDTO> {
 
     @Override
-    public void serialize(ErrorMessage value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(ErrorMessageDTO value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         try {
             gen.writeStartObject();
             gen.writeStringField("description", value.getDescription());
