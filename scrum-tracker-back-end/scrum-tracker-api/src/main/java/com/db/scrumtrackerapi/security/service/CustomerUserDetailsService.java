@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.db.scrumtrackerapi.model.Customer;
-import com.db.scrumtrackerapi.services.CustomerService;
+import com.db.scrumtrackerapi.services.impl.CustomerService;
 
 /**
  * Service class implementing Spring Security's UserDetailsService.
@@ -48,4 +48,5 @@ public class CustomerUserDetailsService implements UserDetailsService{
         }
         return new User(email, password, authorities);
     }
+
 }
