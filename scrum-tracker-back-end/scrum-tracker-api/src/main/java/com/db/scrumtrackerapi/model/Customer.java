@@ -1,8 +1,16 @@
 package com.db.scrumtrackerapi.model;
 
+import java.util.List;
 import java.util.Objects;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.db.scrumtrackerapi.model.enums.Role;
 import com.db.scrumtrackerapi.model.view.CustomerView;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -18,25 +26,25 @@ public class Customer extends BaseEntity {
     /**
      * The name of the customer.
      */
-    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(255)")
+    @Column(name = "name", nullable = false)
     private String name;
 
     /**
      * The last name of the customer.
      */
-    @Column(name = "lastName", nullable = false, columnDefinition = "VARCHAR(255)")
+    @Column(name = "lastName", nullable = false)
     private String lastName;
 
     /**
      * The email address of the customer.
      */
-    @Column(name = "email", nullable = false, unique = true, columnDefinition = "VARCHAR(255)")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     /**
      * The password of the customer.
      */
-    @Column(name = "password", nullable = false, columnDefinition = "VARCHAR(255)")
+    @Column(name = "password", nullable = false)
     private String password;
 
     /**
@@ -45,6 +53,22 @@ public class Customer extends BaseEntity {
     @Column(name = "role", nullable = false)
     private Role role;
     
+
+    /**
+     * Converte um objeto Customer em UserDetails.
+     *
+     * Este método cria um UserDetails a partir das informações do cliente, incluindo o nome de usuário,
+     * a senha e as autorizações associadas ao papel do cliente.
+     *
+     * @param customer O objeto Customer a ser convertido em UserDetails.
+     * @return Um objeto UserDetails criado a partir das informações do cliente.
+     * @throws NullPointerException Se o objeto Customer fornecido for nulo.
+     */
+    public UserDetails toUserDetail() {
+        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(getRole().name()));
+        return new User(getEmail(), getPassword(), authorities);
+    }
+
     /**
      * Converts the customer entity to a view representation.
      *
@@ -73,6 +97,8 @@ public class Customer extends BaseEntity {
         this.email = email;
         this.password = password;
         this.role = role;
+        super.setActive(true);
+        super.setTimestamp();
     }
 
     /**
@@ -215,7 +241,6 @@ public class Customer extends BaseEntity {
     @Override
     public String toString() {
         return "{" +
-            " id=" + super.getId() +
             " email='" + getEmail() + "'" +
             ", name='" + getName() + "'" +
             ", lastName='" + getLastName() + "'" +

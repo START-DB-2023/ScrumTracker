@@ -1,4 +1,4 @@
-package com.db.scrumtrackerapi.model;
+package com.db.scrumtrackerapi.model.dto;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * Represents an error message containing details about an exception or error in the system.
  */
-public class ErrorMessage {
+public class ErrorMessageDTO {
     
     /**
      * A brief description of the error.
@@ -38,7 +38,7 @@ public class ErrorMessage {
      * @param status            The HTTP status code associated with the error.
      * @param exceptionMessage  The detailed exception message providing more information about the error.
      */
-    public ErrorMessage(String description, int status, String exceptionMessage) {
+    public ErrorMessageDTO(String description, int status, String exceptionMessage) {
         this.description = description;
         this.status = status;
         this.exceptionMessage = exceptionMessage;
@@ -128,10 +128,10 @@ public class ErrorMessage {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof ErrorMessage)) {
+        if (!(o instanceof ErrorMessageDTO)) {
             return false;
         }
-        ErrorMessage errorMessage = (ErrorMessage) o;
+        ErrorMessageDTO errorMessage = (ErrorMessageDTO) o;
         return Objects.equals(description, errorMessage.description) && status == errorMessage.status && Objects.equals(exceptionMessage, errorMessage.exceptionMessage) && Objects.equals(timestamp, errorMessage.timestamp);
     }
 
