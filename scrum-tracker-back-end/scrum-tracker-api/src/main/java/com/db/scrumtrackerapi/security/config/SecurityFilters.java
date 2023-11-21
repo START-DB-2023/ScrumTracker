@@ -60,7 +60,7 @@ public class SecurityFilters {
                                 .requestMatchers(new AntPathRequestMatcher("/task-sprint", "PUT")).authenticated()
                                 .requestMatchers(new AntPathRequestMatcher("/task-sprint", "DELETE")).authenticated()
 
-                                .anyRequest().hasRole("ADMIN")
+                                .anyRequest().permitAll()
                                 .and().addFilterBefore(filterToken, UsernamePasswordAuthenticationFilter.class)
                 );
         return http.build();

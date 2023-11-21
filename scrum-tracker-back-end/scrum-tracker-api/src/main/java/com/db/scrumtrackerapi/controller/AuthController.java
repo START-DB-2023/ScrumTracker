@@ -24,7 +24,7 @@ import com.db.scrumtrackerapi.security.service.TokenService;
 import com.db.scrumtrackerapi.services.impl.CustomerService;
 
 @RestController
-@CrossOrigin("http://localhost:5173/")
+@CrossOrigin("http://localhost:5173")
 public class AuthController {
     
     @Autowired

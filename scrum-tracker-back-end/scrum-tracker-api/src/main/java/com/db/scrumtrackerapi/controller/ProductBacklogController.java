@@ -26,6 +26,11 @@ public class ProductBacklogController{
         return ResponseEntity.ok().body(productBacklogService.findById(id));
     }
 
+    @RequestMapping(value="/product/{id}", method=RequestMethod.GET)
+    ResponseEntity<ProductBacklog> getByProductId(@PathVariable Long id) {
+        return ResponseEntity.ok().body(productBacklogService.findByProductId(id));
+    }
+
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
     ResponseEntity<ProductBacklog> deactivateById(@PathVariable Long id) {
         return ResponseEntity.ok().body(productBacklogService.desactivateById(id));
