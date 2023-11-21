@@ -1,4 +1,4 @@
-import { ContainerProduct, Status } from './styles';
+/* import { ContainerProduct, Status } from './styles';
 import { teste } from './list'
 
 export default function ProductBackLog() {
@@ -30,4 +30,4 @@ export default function ProductBackLog() {
             </table>
         </ ContainerProduct>
     )
-}
+} */

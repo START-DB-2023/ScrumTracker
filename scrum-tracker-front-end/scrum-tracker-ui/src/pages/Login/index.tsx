@@ -11,12 +11,15 @@ import { useNavigate } from "react-router-dom";
 import { tokenService } from "../../utils/TokenService";
 import Spinner from "../../components/Spinner";
 import { AxiosError } from 'axios';
+import {useDataProductContext} from '../../contexts/ProductContext'
 
 
 export default function Login() {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+
+  /* const {searchProjects} = useDataProductContext(); */
 
   const navigate = useNavigate();
 
@@ -55,12 +58,14 @@ export default function Login() {
 
       if (tokenService.get("token")) {
         setLoading(false);
+        /* searchProjects() */
         toast.success("Login efetuado com sucesso", {});
         navigate("/");
       }
 
+      
+
     } catch (error) {
-      //console.log(error)
       if (error instanceof AxiosError && error.response?.data.exceptionMessage === "Bad credentials.") {
         return (
           setLoading(false),

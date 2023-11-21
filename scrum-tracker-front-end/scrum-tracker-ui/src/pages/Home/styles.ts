@@ -7,60 +7,19 @@ width: 100vw;
 justify-content: end;
 align-items: end;
 
-
-
-button{
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    
-    height: 7rem;
-    width: 7rem;
-    background-color: ${props => props.theme.COLORS["green-300"]};
-    
-    border-radius: 100px;
-    border: none;
-    
-    position: absolute;
-    top: 1.5rem;
-    right:1.5rem;
-    
-    transition: 0.2s;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    cursor: pointer;
-    
-
-    &:hover{
-        background-color: ${props => props.theme.COLORS["green-200"]};  
-    }
-
-
-    img{
-        height: 3rem;
-        width: 3rem;
-    }
-
-    @media (${(props) => props.theme.BREAKPOINTS.tablet}) {
-        height: 5rem;
-        width: 5rem;
-    }
-   
-}
-
-
-div{
+.containerMain{
     width: 100%;
     height: calc(100% - 50px);
     background-color: ${props => props.theme.COLORS["gray-400"]};
     border-top-right-radius: 25%;
     padding: 2rem;
 
-    h1{
+    /* h1{
         ${props => props.theme.HEADLINE.xl}
         color:${props => props.theme.COLORS.black};
-        text-transform: uppercase;
 
-    }
+
+    } */
 
     @media (max-width:400px) {
         border-top-right-radius: 35%;
@@ -69,13 +28,21 @@ div{
 `
 
 export const NavBar = styled.nav`
-
     display: flex;
     text-transform: uppercase;
-    height: 5rem; 
+    height: 5rem;
     padding:0 1.5rem;
     max-width:150rem;
     margin: 0 auto;
+
+    button{
+    position: absolute;
+    right: 3rem;
+    top: 2rem;
+    height: 6rem;
+    width: 6rem;
+    border-radius: 100px !important;
+}
 
     ul{
         display: flex;
@@ -92,7 +59,7 @@ li{
     cursor:pointer;
 
     &:hover{
-        color: ${props => props.theme.COLORS["green-200"]};  
+        color: ${props => props.theme.COLORS["green-200"]};
     }
 
     @media (${(props) => props.theme.BREAKPOINTS.tablet}) {
