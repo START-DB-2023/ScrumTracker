@@ -5,7 +5,6 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +45,7 @@ public class ItemBacklogServiceTest {
             Status.TODO, 
             Priority.MEDIUM, 
             "FirstExampleName", 
-            Arrays.asList("FirstCriteria", "SecondCriteria"),
+            "FirstCriteria",
             "FirstExampleEffort", 
             List.of(), 
             "FirstExampleDescription",
@@ -58,7 +57,7 @@ public class ItemBacklogServiceTest {
             Status.TODO, 
             Priority.MEDIUM, 
             "FirstExampleName", 
-            Arrays.asList("FirstCriteria", "SecondCriteria"),
+            "FirstCriteria", 
             "FirstExampleEffort", 
             List.of(), 
             "FirstExampleDescription",
@@ -80,7 +79,7 @@ public class ItemBacklogServiceTest {
             Status.TODO, 
             Priority.MEDIUM, 
             "FirstExampleName", 
-            Arrays.asList("FirstCriteria", "SecondCriteria"),
+            "FirstCriteria", 
             "FirstExampleEffort", 
             List.of(), 
             "FirstExampleDescription",
@@ -92,7 +91,7 @@ public class ItemBacklogServiceTest {
             Status.TODO, 
             Priority.MEDIUM, 
             "FirstExampleName", 
-            Arrays.asList("FirstCriteria", "SecondCriteria"),
+            "FirstCriteria", 
             "FirstExampleEffort", 
             List.of(), 
             "FirstExampleDescription",

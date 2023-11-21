@@ -37,8 +37,30 @@ public class SecurityFilters {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(new AntPathRequestMatcher("/login", "POST")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/register", "POST")).hasRole("ADMIN")
                                 .requestMatchers(new AntPathRequestMatcher("/hello")).authenticated()
-                                .anyRequest().permitAll()
+                                
+                                .requestMatchers(new AntPathRequestMatcher("/item-backlog", "POST")).hasAnyRole("ADMIN", "SM", "PO")
+                                .requestMatchers(new AntPathRequestMatcher("/item-backlog", "PUT")).hasAnyRole("ADMIN", "SM", "PO")
+                                .requestMatchers(new AntPathRequestMatcher("/item-backlog", "DELETE")).hasAnyRole("ADMIN", "SM", "PO")
+                                
+                                .requestMatchers(new AntPathRequestMatcher("/product-backlog", "POST")).hasAnyRole("ADMIN", "SM", "PO")
+                                .requestMatchers(new AntPathRequestMatcher("/product-backlog", "PUT")).hasAnyRole("ADMIN", "SM", "PO")
+                                .requestMatchers(new AntPathRequestMatcher("/product-backlog", "DELETE")).hasAnyRole("ADMIN", "SM", "PO")
+                                
+                                .requestMatchers(new AntPathRequestMatcher("/product", "POST")).hasAnyRole("ADMIN", "SM", "PO")
+                                .requestMatchers(new AntPathRequestMatcher("/product", "PUT")).hasAnyRole("ADMIN", "SM", "PO")
+                                .requestMatchers(new AntPathRequestMatcher("/product", "DELETE")).hasAnyRole("ADMIN", "SM", "PO")
+
+                                .requestMatchers(new AntPathRequestMatcher("/sprint", "POST")).hasAnyRole("ADMIN", "SM", "PO")
+                                .requestMatchers(new AntPathRequestMatcher("/sprint", "PUT")).hasAnyRole("ADMIN", "SM", "PO")
+                                .requestMatchers(new AntPathRequestMatcher("/sprint", "DELETE")).hasAnyRole("ADMIN", "SM", "PO")
+
+                                .requestMatchers(new AntPathRequestMatcher("/task-sprint", "POST")).authenticated()
+                                .requestMatchers(new AntPathRequestMatcher("/task-sprint", "PUT")).authenticated()
+                                .requestMatchers(new AntPathRequestMatcher("/task-sprint", "DELETE")).authenticated()
+
+                                .anyRequest().hasRole("ADMIN")
                                 .and().addFilterBefore(filterToken, UsernamePasswordAuthenticationFilter.class)
                 );
         return http.build();

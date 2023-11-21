@@ -43,6 +43,12 @@ public class Sprint extends BaseEntity {
     @OneToMany(mappedBy = "sprint")
     private List<TaskSprint> tasksSprints;
 
+    /**
+     * Updates the attributes of the current sprint with the attributes of the provided sprint.
+     *
+     * @param sprint The sprint with updated values.
+     * @return The updated sprint.
+     */
     public Sprint updateSprint(Sprint sprint) {
         this.sprintGoals = sprint.getSprintGoals();
         this.itensBacklog = sprint.getItensBacklog();
@@ -136,7 +142,7 @@ public class Sprint extends BaseEntity {
         if (o == this) return true;
         if (!(o instanceof Sprint)) return false;
         Sprint sprint = (Sprint) o;
-        return Objects.equals(sprintGoals, sprint.sprintGoals) &&
+        return Objects.equals(sprintGoals, sprint.getSprintGoals()) &&
                 Objects.equals(Arrays.hashCode(itensBacklog.stream().map(i -> i.getId()).toArray()), Arrays.hashCode(sprint.getItensBacklog().stream().map(i -> i.getId()).toArray())) &&
                 Objects.equals(Arrays.hashCode(tasksSprints.stream().map(i -> i.getId()).toArray()), Arrays.hashCode(sprint.getTasksSprints().stream().map(i -> i.getId()).toArray()));
     }

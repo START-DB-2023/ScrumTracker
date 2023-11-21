@@ -87,6 +87,12 @@ public class ProductBacklog extends BaseEntity {
         this.itensBacklog = items;
     }
 
+    /**
+     * Updates the attributes of the current product backlog with the attributes of the provided product backlog.
+     *
+     * @param productBacklog The product backlog with updated values.
+     * @return The updated product backlog.
+     */
     public ProductBacklog updateProductBacklog(ProductBacklog productBacklog) {
         this.itensBacklog = productBacklog.getItensBacklog();
         this.product = productBacklog.getProduct();
@@ -107,7 +113,7 @@ public class ProductBacklog extends BaseEntity {
             return false;
         }
         ProductBacklog productBacklog = (ProductBacklog) o;
-        return Objects.equals(product, productBacklog.product) 
+        return Objects.equals(product, productBacklog.getProduct()) 
         && Objects.equals(Arrays.hashCode(itensBacklog.stream().map(ItemBacklog::getId).toArray()), Arrays.hashCode(productBacklog.getItensBacklog().stream().map(ItemBacklog::getId).toArray()));
     }
 

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
@@ -42,7 +41,7 @@ public class TaskSprintServiceTest {
             Status.IN_PROGRESS, 
             Priority.MEDIUM, 
             "FirstExampleName", 
-            Arrays.asList("FirstCriteria", "SecondCriteria"),
+        "FirstCriteria",
             "FirstExampleEffort", 
             List.of(), 
             "FirstExampleDescription",

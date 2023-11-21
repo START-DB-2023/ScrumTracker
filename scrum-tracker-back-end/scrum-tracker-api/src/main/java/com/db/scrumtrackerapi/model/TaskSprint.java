@@ -37,13 +37,13 @@ public class TaskSprint extends BaseEntity {
     /**
      * The description of the task.
      */
-    @Column(name = "description", nullable = true)
+    @Column(name = "description")
     private String description;
 
     /**
      * Comments related to the task.
      */
-    @Column(name = "comments", nullable = true)
+    @Column(name = "comments")
     private String comments;
 
     /**
@@ -61,7 +61,7 @@ public class TaskSprint extends BaseEntity {
     /**
      * The effort estimation for the task.
      */
-    @Column(name = "effort_estimation", nullable = true)
+    @Column(name = "effort_estimation")
     private String effortEstimation;
 
     /**
@@ -78,6 +78,12 @@ public class TaskSprint extends BaseEntity {
     @JoinColumn(name = "sprint_id")
     private Sprint sprint;
 
+    /**
+     * Updates the attributes of the current task with the attributes of the provided task.
+     *
+     * @param taskSprint The task with updated values.
+     * @return The updated task.
+     */
     public TaskSprint updateTaskSprint(TaskSprint taskSprint) {
         this.name = taskSprint.getName();
         this.itemBacklog = taskSprint.getItemBacklog();
@@ -300,7 +306,7 @@ public class TaskSprint extends BaseEntity {
             return false;
         }
         TaskSprint taskSprint = (TaskSprint) o;
-        return Objects.equals(name, taskSprint.name) && Objects.equals(itemBacklog.getId(), taskSprint.itemBacklog.getId()) && Objects.equals(description, taskSprint.description) && Objects.equals(comments, taskSprint.comments) && Objects.equals(status, taskSprint.status) && Objects.equals(priority, taskSprint.priority) && Objects.equals(effortEstimation, taskSprint.effortEstimation) && Objects.equals(responsible, taskSprint.responsible) && Objects.equals(sprint.getId(), taskSprint.sprint.getId());
+        return Objects.equals(name, taskSprint.getName()) && Objects.equals(itemBacklog.getId(), taskSprint.getItemBacklog().getId()) && Objects.equals(description, taskSprint.getDescription()) && Objects.equals(comments, taskSprint.getComments()) && Objects.equals(status, taskSprint.getStatus()) && Objects.equals(priority, taskSprint.getPriority()) && Objects.equals(effortEstimation, taskSprint.getEffortEstimation()) && Objects.equals(responsible, taskSprint.getResponsible()) && Objects.equals(sprint.getId(), taskSprint.getSprint().getId());
     }
 
     /**

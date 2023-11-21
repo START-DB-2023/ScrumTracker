@@ -19,7 +19,7 @@ import com.db.scrumtrackerapi.exceptions.BadEmailException;
 import com.db.scrumtrackerapi.exceptions.BadPasswordException;
 import com.db.scrumtrackerapi.model.Customer;
 import com.db.scrumtrackerapi.model.dto.LoginDTO;
-import com.db.scrumtrackerapi.model.dto.TokenMessageDTO;
+import com.db.scrumtrackerapi.model.view.TokenMessageView;
 import com.db.scrumtrackerapi.security.service.TokenService;
 import com.db.scrumtrackerapi.services.impl.CustomerService;
 
@@ -37,7 +37,7 @@ public class AuthController {
     private CustomerService customerService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<TokenMessageDTO> login(@RequestBody LoginDTO login) throws AuthenticationException {
+    public ResponseEntity<TokenMessageView> login(@RequestBody LoginDTO login) throws AuthenticationException {
         Optional<Customer> customer = customerService.findByEmail(login.getEmail());
         if (customer.isPresent()) {
             try{
@@ -46,7 +46,7 @@ public class AuthController {
                 Authentication authenticate = this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
                 UserDetails user = (UserDetails) authenticate.getPrincipal();
                 String token = tokenService.generateToken(user);
-                TokenMessageDTO responseBody = new TokenMessageDTO(token, customer.get().getName(), customer.get().getLastName(), customer.get().getRole());
+                TokenMessageView responseBody = new TokenMessageView(token, customer.get().getName(), customer.get().getLastName(), customer.get().getRole());
                 return ResponseEntity.ok().body(responseBody);
             } catch(BadCredentialsException ex) {
                 throw new BadPasswordException("The inserted password is wrong.");

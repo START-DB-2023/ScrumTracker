@@ -45,7 +45,7 @@ public class ItemBacklog extends BaseEntity {
      * The criteria for acceptance of the backlog item.
      */
     @Column(name = "criteria_acceptance", nullable = false)
-    private List<String> criteriaAcceptance;
+    private String criteriaAcceptance;
 
     /**
      * The effort estimation for the backlog item.
@@ -62,7 +62,7 @@ public class ItemBacklog extends BaseEntity {
     /**
      * The description of the backlog item.
      */
-    @Column(name = "description", nullable = false)
+    @Column(name = "description")
     private String description;
 
     /**
@@ -107,7 +107,7 @@ public class ItemBacklog extends BaseEntity {
      * @param description       The description of the backlog item.
      * @param productBacklog    The product backlog associated with the backlog item.
      */
-    public ItemBacklog(Status status, Priority priority, String name, List<String> criteriaAcceptance, String effortEstimation, List<Sprint> sprint, String description, ProductBacklog productBacklog) {
+    public ItemBacklog(Status status, Priority priority, String name, String criteriaAcceptance, String effortEstimation, List<Sprint> sprint, String description, ProductBacklog productBacklog) {
         this.status = status;
         this.priority = priority;
         this.name = name;
@@ -179,7 +179,7 @@ public class ItemBacklog extends BaseEntity {
      *
      * @return The criteria for acceptance of the backlog item.
      */
-    public List<String> getCriteriaAcceptance() {
+    public String getCriteriaAcceptance() {
         return this.criteriaAcceptance;
     }
 
@@ -188,7 +188,7 @@ public class ItemBacklog extends BaseEntity {
      *
      * @param criteriaAcceptance The criteria for acceptance to set.
      */
-    public void setCriteriaAcceptance(List<String> criteriaAcceptance) {
+    public void setCriteriaAcceptance(String criteriaAcceptance) {
         this.criteriaAcceptance = criteriaAcceptance;
     }
 
@@ -275,14 +275,14 @@ public class ItemBacklog extends BaseEntity {
         if (o == this) return true;
         if (!(o instanceof ItemBacklog)) return false;
         ItemBacklog itemBacklog = (ItemBacklog) o;
-        return Objects.equals(status, itemBacklog.status) &&
-                Objects.equals(priority, itemBacklog.priority) &&
-                Objects.equals(name, itemBacklog.name) &&
-                Objects.equals(criteriaAcceptance, itemBacklog.criteriaAcceptance) &&
-                Objects.equals(effortEstimation, itemBacklog.effortEstimation) &&
-                Objects.equals(Arrays.hashCode(sprints.stream().map(i -> i.getId()).toArray()), Arrays.hashCode(itemBacklog.sprints.stream().map(i -> i.getId()).toArray())) &&
-                Objects.equals(description, itemBacklog.description) &&
-                Objects.equals(productBacklog.getId(), itemBacklog.productBacklog.getId());
+        return Objects.equals(status, itemBacklog.getStatus()) &&
+                Objects.equals(priority, itemBacklog.getPriority()) &&
+                Objects.equals(name, itemBacklog.getName()) &&
+                Objects.equals(criteriaAcceptance, itemBacklog.getCriteriaAcceptance()) &&
+                Objects.equals(effortEstimation, itemBacklog.getEffortEstimation()) &&
+                Objects.equals(Arrays.hashCode(sprints.stream().map(i -> i.getId()).toArray()), Arrays.hashCode(itemBacklog.getSprints().stream().map(i -> i.getId()).toArray())) &&
+                Objects.equals(description, itemBacklog.getDescription()) &&
+                Objects.equals(productBacklog.getId(), itemBacklog.getProductBacklog().getId());
     }
 
     /**
