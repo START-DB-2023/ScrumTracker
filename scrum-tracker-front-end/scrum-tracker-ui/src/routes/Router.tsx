@@ -1,7 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import { DefaultLayout } from "./layouts/DefaultLayout"
-import Home from "./pages/Home"
-import Login from "./pages/Login"
+import Home from "../pages/Home"
+import Login from "../pages/Login"
+import PrivateRoute from "./privateRoute"
+import { DefaultLayout } from "../layouts/DefaultLayout"
+
 
 export default function Router() {
   return (
@@ -9,8 +11,13 @@ export default function Router() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<DefaultLayout />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          } />
         </Route>
+
       </Routes>
     </BrowserRouter>
   )
