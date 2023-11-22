@@ -4,7 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import com.db.scrumtrackerapi.model.view.DetailedSprintView;
+import com.db.scrumtrackerapi.model.view.ItemBacklogView;
 import com.db.scrumtrackerapi.model.view.SprintView;
+import com.db.scrumtrackerapi.model.view.TaskSprintView;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -50,17 +53,37 @@ public class Sprint extends BaseEntity {
      * @return SprintView representing the overview of the Sprint.
      */
     public SprintView toView() {
-        return new SprintView(getId(), sprintGoals, tasksSprints.stream().map(i -> i.toView()).toList());
+        List<TaskSprintView> taskSprintViews;
+        if (tasksSprints != null) {
+            taskSprintViews = tasksSprints.stream().map(i -> i.toView()).toList();
+        } else {
+            taskSprintViews = null;
+        }
+        return new SprintView(getId(), sprintGoals, taskSprintViews);
     }
 
-
+    
     /**
      * Converts the current Sprint entity to a DetailedSprintView, providing additional details.
      *
      * @return DetailedSprintView representing the detailed view of the Sprint.
      */
     public DetailedSprintView toDetailedView() {
-        return new DetailedSprintView(getId(), sprintGoals, tasksSprints.stream().map(i -> i.toView()).toList(), itensBacklog.stream().map(i -> i.toView()).toList());
+        List<TaskSprintView> taskSprintViews;
+        if (tasksSprints != null) {
+            taskSprintViews = tasksSprints.stream().map(i -> i.toView()).toList();
+        } else {
+            taskSprintViews = null;
+        }
+        
+        List<ItemBacklogView> itemBacklogViews;
+        if (itensBacklog != null) {
+            itemBacklogViews = itensBacklog.stream().map(i -> i.toView()).toList();
+        } else {
+            itemBacklogViews = null;
+        }
+        
+        return new DetailedSprintView(getId(), sprintGoals, taskSprintViews, itemBacklogViews);
     }
 
 
@@ -70,7 +93,7 @@ public class Sprint extends BaseEntity {
      * @param sprint The sprint with updated values.
      * @return The updated sprint.
      */
-    public Sprint updateSprint(Sprint sprint) {
+    public Sprint update(Sprint sprint) {
         this.sprintGoals = sprint.getSprintGoals();
         this.itensBacklog = sprint.getItensBacklog();
         this.tasksSprints = sprint.getTasksSprints(); 

@@ -64,7 +64,7 @@ public class ItemBacklogService implements IItemBacklogService {
     public ItemBacklog update(Long id, ItemBacklog itemBacklog) {
         Optional<ItemBacklog> savedItemBacklog = itemBacklogRepository.findById(id);
         if (savedItemBacklog.isPresent() && savedItemBacklog.get().isActive()) {
-            ItemBacklog newItemBacklog = savedItemBacklog.get().updateItemBacklog(itemBacklog);
+            ItemBacklog newItemBacklog = savedItemBacklog.get().update(itemBacklog);
             return itemBacklogRepository.save(newItemBacklog);
         } else {
             throw new EntityNotFoundException("ItemBacklog with id " + itemBacklog.getId() + " was not found.");

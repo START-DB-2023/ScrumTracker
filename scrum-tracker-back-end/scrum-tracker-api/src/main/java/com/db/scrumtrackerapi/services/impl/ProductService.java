@@ -60,7 +60,7 @@ public class ProductService implements IProductService {
     public Product update(Long id, Product product) {
         Optional<Product> existingProduct = productRepository.findById(id);
         if (existingProduct.isPresent()) {
-            Product updatedProduct = existingProduct.get().updateProduct(product);
+            Product updatedProduct = existingProduct.get().update(product);
             return productRepository.save(updatedProduct);
         } else {
             throw new EntityNotFoundException("Product with ID " + product.getId() + " not found");

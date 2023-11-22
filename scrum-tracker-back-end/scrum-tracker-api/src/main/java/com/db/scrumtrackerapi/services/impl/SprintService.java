@@ -52,7 +52,7 @@ public class SprintService implements ISprintService {
     public Sprint update(Long id, Sprint sprint) throws EntityNotFoundException {
         Optional<Sprint> savedSprintOptional = sprintRepository.findById(id);
         if (savedSprintOptional.isPresent()) {
-            Sprint savedSprint = savedSprintOptional.get().updateSprint(sprint);
+            Sprint savedSprint = savedSprintOptional.get().update(sprint);
             return sprintRepository.save(savedSprint);
         } else {
             throw new EntityNotFoundException("Sprint with ID " + sprint.getId() + " was not found or is not active.");

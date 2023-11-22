@@ -7,6 +7,7 @@ import java.util.Objects;
 import com.db.scrumtrackerapi.model.enums.Priority;
 import com.db.scrumtrackerapi.model.enums.Status;
 import com.db.scrumtrackerapi.model.view.ItemBacklogView;
+import com.db.scrumtrackerapi.model.view.SprintView;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -79,7 +80,7 @@ public class ItemBacklog extends BaseEntity {
      * @param itemBacklog The item backlog with updated values.
      * @return The updated item backlog.
      */
-    public ItemBacklog updateItemBacklog(ItemBacklog itemBacklog) {
+    public ItemBacklog update(ItemBacklog itemBacklog) {
         this.status = itemBacklog.getStatus();
         this.priority = itemBacklog.getPriority();
         this.name = itemBacklog.getName();
@@ -90,8 +91,19 @@ public class ItemBacklog extends BaseEntity {
         return this;
     }
 
+    /**
+     * Converts the current Item Backlog object into a Item Backlog view object.
+     * 
+     * @return A product view object representing the current product.
+     */
     public ItemBacklogView toView() {
-        return new ItemBacklogView(getId(), status.toString(), priority.toString(), name, criteriaAcceptance, effortEstimation, sprints.stream().map(i -> i.toView()).toList(), description);
+        List<SprintView> sprintViews;
+        if (sprints != null) {
+            sprintViews = sprints.stream().map(i -> i.toView()).toList();
+        } else {
+            sprintViews = null;
+        }
+        return new ItemBacklogView(getId(), status.toString(), priority.toString(), name, criteriaAcceptance, effortEstimation, sprintViews, description);
     }
 
     /**

@@ -3,6 +3,7 @@ package com.db.scrumtrackerapi.model;
 
 import java.util.Objects;
 
+import com.db.scrumtrackerapi.model.view.ProductBacklogView;
 import com.db.scrumtrackerapi.model.view.ProductView;
 
 import jakarta.persistence.Column;
@@ -66,7 +67,7 @@ public class Product extends BaseEntity {
      * @param product The item backlog with updated values.
      * @return The updated item backlog.
      */
-    public Product updateProduct(Product product){
+    public Product update(Product product){
         this.name = product.getName();
         this.client = product.getClient();
         this.objectives = product.getObjectives();
@@ -90,7 +91,13 @@ public class Product extends BaseEntity {
      * @return A product view object representing the current product.
      */
     public ProductView toView() {
-        return new ProductView(getId(), name, client, objectives, vision, definitionOfDone, definitionOfReady, productBacklog.toView());
+        ProductBacklogView productBacklogView;
+        if (productBacklog != null) {
+            productBacklogView = productBacklog.toView();
+        } else {
+            productBacklogView = null;
+        }
+        return new ProductView(getId(), name, client, objectives, vision, definitionOfDone, definitionOfReady, productBacklogView);
     }
 
     /**

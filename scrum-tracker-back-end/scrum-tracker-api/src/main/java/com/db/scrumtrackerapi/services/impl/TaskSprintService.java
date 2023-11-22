@@ -53,7 +53,7 @@ public class TaskSprintService implements ITaskSprintService {
     public TaskSprint update(Long id, TaskSprint taskSprint) throws EntityNotFoundException {
         Optional<TaskSprint> savedTaskSprintOptional = taskSprintRepository.findById(id);
         if (savedTaskSprintOptional.isPresent()) {
-            TaskSprint savedTaskSprint = savedTaskSprintOptional.get().updateTaskSprint(taskSprint);
+            TaskSprint savedTaskSprint = savedTaskSprintOptional.get().update(taskSprint);
             return taskSprintRepository.save(savedTaskSprint);
         } else {
             throw new EntityNotFoundException("Task with ID " + taskSprint.getId() + " not found.");

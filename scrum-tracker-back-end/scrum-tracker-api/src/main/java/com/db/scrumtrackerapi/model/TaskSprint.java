@@ -3,6 +3,7 @@ package com.db.scrumtrackerapi.model;
 import java.util.Objects;
 import com.db.scrumtrackerapi.model.enums.Priority;
 import com.db.scrumtrackerapi.model.enums.Status;
+import com.db.scrumtrackerapi.model.view.CustomerView;
 import com.db.scrumtrackerapi.model.view.TaskSprintView;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -83,7 +84,7 @@ public class TaskSprint extends BaseEntity {
      * @param taskSprint The task with updated values.
      * @return The updated task.
      */
-    public TaskSprint updateTaskSprint(TaskSprint taskSprint) {
+    public TaskSprint update(TaskSprint taskSprint) {
         this.name = taskSprint.getName();
         this.itemBacklog = taskSprint.getItemBacklog();
         this.description = taskSprint.getDescription();
@@ -103,7 +104,13 @@ public class TaskSprint extends BaseEntity {
      * @return A TaskSprintView object representing the view of the task with its relevant attributes.
      */
     public TaskSprintView toView(){
-        return new TaskSprintView(getId(), name, description, comments, status.toString(), priority.toString(), effortEstimation, responsible.toView());
+        CustomerView responsibleView;
+        if (responsible != null) {
+            responsibleView = responsible.toView();
+        } else {
+            responsibleView = null;
+        }
+        return new TaskSprintView(getId(), name, description, comments, status.toString(), priority.toString(), effortEstimation, responsibleView);
     }
 
 
