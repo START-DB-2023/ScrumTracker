@@ -112,7 +112,7 @@ public class ProductBacklog extends BaseEntity {
      * @param productBacklog The product backlog with updated values.
      * @return The updated product backlog.
      */
-    public ProductBacklog updateProductBacklog(ProductBacklog productBacklog) {
+    public ProductBacklog update(ProductBacklog productBacklog) {
         this.itensBacklog = productBacklog.getItensBacklog();
         this.product = productBacklog.getProduct();
         return this;

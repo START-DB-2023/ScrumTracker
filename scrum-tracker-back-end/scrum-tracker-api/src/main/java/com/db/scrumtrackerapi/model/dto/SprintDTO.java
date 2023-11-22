@@ -6,6 +6,9 @@ import com.db.scrumtrackerapi.model.ItemBacklog;
 import com.db.scrumtrackerapi.model.Sprint;
 import com.db.scrumtrackerapi.model.TaskSprint;
 
+/**
+ * Data Transfer Object (DTO) representing product information.
+ */
 public class SprintDTO{
 
     /**

@@ -60,8 +60,8 @@ public class ItemBacklogRepositoryTest {
     private ProductBacklog productBacklog2 = new ProductBacklog(new ArrayList<>(), product2);;
 
     ItemBacklog itemBacklog1 = new ItemBacklog(
-        Status.TODO, 
-        Priority.MEDIUM, 
+        Status.A_FAZER, 
+        Priority.MEDIA, 
         "FirstExampleName", 
         "FirstCriteria",
         "FirstExampleEffort", 
@@ -70,8 +70,8 @@ public class ItemBacklogRepositoryTest {
         productBacklog1);
 
     ItemBacklog itemBacklog2 = new ItemBacklog(
-        Status.TODO, 
-        Priority.MEDIUM, 
+        Status.A_FAZER, 
+        Priority.MEDIA, 
         "SecondExampleName", 
 "FirstCriteria",
         "SecondExampleEffort", 

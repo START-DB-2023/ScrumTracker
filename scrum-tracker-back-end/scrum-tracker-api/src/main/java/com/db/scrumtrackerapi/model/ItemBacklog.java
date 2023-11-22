@@ -62,10 +62,10 @@ public class ItemBacklog extends BaseEntity {
     private List<Sprint> sprints;
 
     /**
-     * The description of the backlog item.
+     * The userHistory of the backlog item.
      */
-    @Column(name = "description")
-    private String description;
+    @Column(name = "userHistory")
+    private String userHistory;
 
     /**
      * The product backlog associated with the backlog item.
@@ -87,7 +87,7 @@ public class ItemBacklog extends BaseEntity {
         this.criteriaAcceptance = itemBacklog.getCriteriaAcceptance();
         this.effortEstimation = itemBacklog.getEffortEstimation();
         this.sprints = itemBacklog.getSprints();
-        this.description = itemBacklog.getDescription();
+        this.userHistory = itemBacklog.getUserHistory();
         return this;
     }
 
@@ -103,7 +103,7 @@ public class ItemBacklog extends BaseEntity {
         } else {
             sprintViews = null;
         }
-        return new ItemBacklogView(getId(), status.toString(), priority.toString(), name, criteriaAcceptance, effortEstimation, sprintViews, description);
+        return new ItemBacklogView(getId(), status.toString(), priority.toString(), name, criteriaAcceptance, effortEstimation, sprintViews, userHistory);
     }
 
     /**
@@ -121,17 +121,17 @@ public class ItemBacklog extends BaseEntity {
      * @param criteriaAcceptance The criteria for acceptance of the backlog item.
      * @param effortEstimation  The effort estimation for the backlog item.
      * @param sprint            The sprint associated with the backlog item.
-     * @param description       The description of the backlog item.
+     * @param userHistory       The description of the backlog item.
      * @param productBacklog    The product backlog associated with the backlog item.
      */
-    public ItemBacklog(Status status, Priority priority, String name, String criteriaAcceptance, String effortEstimation, List<Sprint> sprint, String description, ProductBacklog productBacklog) {
+    public ItemBacklog(Status status, Priority priority, String name, String criteriaAcceptance, String effortEstimation, List<Sprint> sprint, String userHistory, ProductBacklog productBacklog) {
         this.status = status;
         this.priority = priority;
         this.name = name;
         this.criteriaAcceptance = criteriaAcceptance;
         this.effortEstimation = effortEstimation;
         this.sprints = sprint;
-        this.description = description;
+        this.userHistory = userHistory;
         this.productBacklog = productBacklog;
         super.setActive(true);
         super.setTimestamp();
@@ -250,17 +250,17 @@ public class ItemBacklog extends BaseEntity {
      *
      * @return The description of the backlog item.
      */
-    public String getDescription() {
-        return this.description;
+    public String getUserHistory() {
+        return this.userHistory;
     }
 
     /**
      * Sets the description of the backlog item.
      *
-     * @param description The description to set.
+     * @param userHistory The description to set.
      */
-    public void setDescription(String description) {
-        this.description = description;
+    public void setUserHistory(String userHistory) {
+        this.userHistory = userHistory;
     }
 
     /**
@@ -298,7 +298,7 @@ public class ItemBacklog extends BaseEntity {
                 Objects.equals(criteriaAcceptance, itemBacklog.getCriteriaAcceptance()) &&
                 Objects.equals(effortEstimation, itemBacklog.getEffortEstimation()) &&
                 Objects.equals(Arrays.hashCode(sprints.stream().map(i -> i.getId()).toArray()), Arrays.hashCode(itemBacklog.getSprints().stream().map(i -> i.getId()).toArray())) &&
-                Objects.equals(description, itemBacklog.getDescription()) &&
+                Objects.equals(userHistory, itemBacklog.getUserHistory()) &&
                 Objects.equals(productBacklog.getId(), itemBacklog.getProductBacklog().getId());
     }
 
@@ -309,7 +309,7 @@ public class ItemBacklog extends BaseEntity {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(status, priority, name, criteriaAcceptance, effortEstimation, sprints, description, productBacklog.getId());
+        return Objects.hash(status, priority, name, criteriaAcceptance, effortEstimation, sprints, userHistory, productBacklog.getId());
     }
 
     /**
@@ -326,7 +326,7 @@ public class ItemBacklog extends BaseEntity {
                 ", criteriaAcceptance='" + getCriteriaAcceptance() + "'" +
                 ", effortEstimation='" + getEffortEstimation() + "'" +
                 ", sprintIds='" + getSprints().stream().map(i -> i.getId()) + "'" +
-                ", description='" + getDescription() + "'" +
+                ", description='" + getUserHistory() + "'" +
                 ", productBacklogId='" + getProductBacklog().getId() + "'" +
                 "}";
     }

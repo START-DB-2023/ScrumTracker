@@ -38,8 +38,8 @@ public class TaskSprintServiceTest {
     @DisplayName("Assert updateItemBacklog return the expected ItemBacklog")
     public void testUpdateItemBacklog(){      
         ItemBacklog itemBacklog = new ItemBacklog(
-            Status.IN_PROGRESS, 
-            Priority.MEDIUM, 
+            Status.EM_DESENVOLVIMENTO, 
+            Priority.MEDIA, 
             "FirstExampleName", 
         "FirstCriteria",
             "FirstExampleEffort", 
@@ -49,11 +49,11 @@ public class TaskSprintServiceTest {
 
         Sprint sprint = new Sprint("ExampleGoal", List.of(itemBacklog), new ArrayList<>());
 
-        TaskSprint savedTaskSprint = new TaskSprint("FirstExampleName", itemBacklog, "FirstExampleDescription", "FirstExampleComments", Status.IN_PROGRESS, Priority.LOW, "FirstExampleEffortEstimation", null, sprint);
+        TaskSprint savedTaskSprint = new TaskSprint("FirstExampleName", itemBacklog, "FirstExampleDescription", "FirstExampleComments", Status.EM_DESENVOLVIMENTO, Priority.BAIXA, "FirstExampleEffortEstimation", null, sprint);
 
         when(taskSprintRepository.findById(eq(1L))).thenReturn(Optional.of(savedTaskSprint));
         
-        TaskSprint expectedTaskSprint = new TaskSprint("ModifiedExampleName", itemBacklog, "ModifiedExampleDescription", "ModifiedExampleComments", Status.IN_PROGRESS, Priority.LOW, "ModifiedExampleEffortEstimation", null, sprint);
+        TaskSprint expectedTaskSprint = new TaskSprint("ModifiedExampleName", itemBacklog, "ModifiedExampleDescription", "ModifiedExampleComments", Status.EM_DESENVOLVIMENTO, Priority.BAIXA, "ModifiedExampleEffortEstimation", null, sprint);
 
         when(taskSprintRepository.save(eq(expectedTaskSprint))).thenReturn(expectedTaskSprint);
 

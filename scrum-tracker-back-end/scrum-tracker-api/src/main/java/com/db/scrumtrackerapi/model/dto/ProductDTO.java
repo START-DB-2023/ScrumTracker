@@ -7,6 +7,9 @@ import com.db.scrumtrackerapi.model.ProductBacklog;
 
 import jakarta.validation.constraints.NotBlank;
 
+/**
+ * Data Transfer Object (DTO) representing product information.
+ */
 public class ProductDTO {
 
     /**

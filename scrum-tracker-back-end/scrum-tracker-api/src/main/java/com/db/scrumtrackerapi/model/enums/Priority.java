@@ -7,15 +7,15 @@ public enum Priority {
     /**
      *  Low priority.
      */
-    LOW,
+    BAIXA,
     
     /**
      * Medium priority.
      */
-    MEDIUM,
+    MEDIA,
 
     /**
      * High priority.
      */
-    HIGH,
+    ALTA,
 }

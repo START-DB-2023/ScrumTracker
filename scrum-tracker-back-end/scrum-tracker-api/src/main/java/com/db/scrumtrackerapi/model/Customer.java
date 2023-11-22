@@ -101,6 +101,17 @@ public class Customer extends BaseEntity {
         super.setTimestamp();
     }
 
+
+    /**
+     * Updates the attributes of the current customer with the attributes of the provided product backlog.
+     *
+     * @param customer The customer with updated values.
+     * @return The updated customer backlog.
+     */
+    public Customer update(Customer customer) {
+        return new Customer(customer.getName(), customer.getLastName(), customer.getEmail(), customer.getPassword(), customer.getRole());
+    }
+
     /**
      * Default constructor for Customer (protected to prevent public instantiation).
      */

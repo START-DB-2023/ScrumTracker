@@ -7,7 +7,6 @@ import com.db.scrumtrackerapi.model.view.DetailedSprintView;
 import com.db.scrumtrackerapi.model.view.ItemBacklogView;
 import com.db.scrumtrackerapi.model.view.SprintView;
 import com.db.scrumtrackerapi.model.view.TaskSprintView;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;

@@ -9,6 +9,9 @@ import java.util.Objects;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * Data Transfer Object (DTO) representing product information.
+ */
 public class TaskSprintDTO{
 
     /**

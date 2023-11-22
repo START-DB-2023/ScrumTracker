@@ -42,8 +42,8 @@ public class ItemBacklogServiceTest {
         ProductBacklog productBacklog = new ProductBacklog(new ArrayList<>(), null);
 
         ItemBacklog savedItemBacklog = new ItemBacklog(
-            Status.TODO, 
-            Priority.MEDIUM, 
+            Status.A_FAZER, 
+            Priority.MEDIA, 
             "FirstExampleName", 
             "FirstCriteria",
             "FirstExampleEffort", 
@@ -54,8 +54,8 @@ public class ItemBacklogServiceTest {
         when(itemBacklogRepository.findById(eq(1L))).thenReturn(Optional.of(savedItemBacklog));
              
         ItemBacklog itemBacklog = new ItemBacklog(
-            Status.TODO, 
-            Priority.MEDIUM, 
+            Status.A_FAZER, 
+            Priority.MEDIA, 
             "FirstExampleName", 
             "FirstCriteria", 
             "FirstExampleEffort", 
@@ -76,8 +76,8 @@ public class ItemBacklogServiceTest {
         ProductBacklog productBacklog = new ProductBacklog(new ArrayList<>(), null);
 
         ItemBacklog savedItemBacklog = new ItemBacklog(
-            Status.TODO, 
-            Priority.MEDIUM, 
+            Status.A_FAZER, 
+            Priority.MEDIA, 
             "FirstExampleName", 
             "FirstCriteria", 
             "FirstExampleEffort", 
@@ -88,8 +88,8 @@ public class ItemBacklogServiceTest {
         when(itemBacklogRepository.findById(eq(1L))).thenReturn(Optional.of(savedItemBacklog));
              
         ItemBacklog expectedItemBacklog = new ItemBacklog(
-            Status.TODO, 
-            Priority.MEDIUM, 
+            Status.A_FAZER, 
+            Priority.MEDIA, 
             "FirstExampleName", 
             "FirstCriteria", 
             "FirstExampleEffort", 

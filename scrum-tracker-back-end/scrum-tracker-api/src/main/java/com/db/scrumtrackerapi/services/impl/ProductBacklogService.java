@@ -84,11 +84,23 @@ public class ProductBacklogService implements IProductBacklogService {
         }
     }
 
-	 @Override
+
+    /**
+     * Updates the information of an existing product backlog item.
+     *
+     * This method retrieves the product backlog item with the given ID, checks if it's active, and then updates its
+     * information with the provided product backlog object. The updated product backlog item is then saved to the repository.
+     *
+     * @param id The ID of the product backlog item to update.
+     * @param productBacklog The product backlog object containing the updated information.
+     * @return The updated product backlog item.
+     * @throws EntityNotFoundException If the product backlog item with the specified ID is not found or is not active.
+     */
+	@Override
     public ProductBacklog update(Long id, ProductBacklog productBacklog) {
         Optional<ProductBacklog> savedProductBacklog = productBacklogRepository.findById(id);
         if (savedProductBacklog.isPresent() && savedProductBacklog.get().isActive()) {
-            ProductBacklog newItemBacklog = savedProductBacklog.get().updateProductBacklog(productBacklog);
+            ProductBacklog newItemBacklog = savedProductBacklog.get().update(productBacklog);
             return productBacklogRepository.save(newItemBacklog);
         } else {
             throw new EntityNotFoundException("ProductBacklog with id " + productBacklog.getId() + " was not found.");

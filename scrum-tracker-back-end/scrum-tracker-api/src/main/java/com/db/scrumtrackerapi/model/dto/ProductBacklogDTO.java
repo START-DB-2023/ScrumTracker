@@ -7,12 +7,23 @@ import com.db.scrumtrackerapi.model.ItemBacklog;
 import com.db.scrumtrackerapi.model.Product;
 import com.db.scrumtrackerapi.model.ProductBacklog;
 
+/**
+ * Data Transfer Object (DTO) representing product backlog information.
+ */
 public class ProductBacklogDTO{
 
+
+    /**
+     * The product associated with this product backlog.
+     */
     private Product product;
 
+    /**
+     * The list of backlog items associated with this product.
+     */
     private List<ItemBacklog> itensBacklog;
 
+    
     public ProductBacklog toProductBacklog() {
         return new ProductBacklog(itensBacklog, product);
     }

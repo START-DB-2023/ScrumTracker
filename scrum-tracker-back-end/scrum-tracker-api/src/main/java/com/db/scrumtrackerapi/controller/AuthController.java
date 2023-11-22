@@ -23,8 +23,11 @@ import com.db.scrumtrackerapi.model.view.TokenMessageView;
 import com.db.scrumtrackerapi.security.service.TokenService;
 import com.db.scrumtrackerapi.services.impl.CustomerService;
 
+/**
+ * Controller class handling authentication-related endpoints.
+ */
 @RestController
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin("http://localhost:5173/")
 public class AuthController {
     
     @Autowired
@@ -36,25 +39,35 @@ public class AuthController {
     @Autowired
     private CustomerService customerService;
 
+    /**
+     * Handles the login endpoint.
+     * 
+     * @param login The login information.
+     * @return ResponseEntity containing a token and user information upon successful authentication.
+     * @throws AuthenticationException If authentication fails.
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<TokenMessageView> login(@RequestBody LoginDTO login) throws AuthenticationException {
         Optional<Customer> customer = customerService.findByEmail(login.getEmail());
         if (customer.isPresent()) {
-            try{
+            try {
+                // Attempt authentication
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = 
-            new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword());
+                    new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword());
                 Authentication authenticate = this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
                 UserDetails user = (UserDetails) authenticate.getPrincipal();
+
+                // Generate token and construct response
                 String token = tokenService.generateToken(user);
                 TokenMessageView responseBody = new TokenMessageView(token, customer.get().getName(), customer.get().getLastName(), customer.get().getRole());
+
                 return ResponseEntity.ok().body(responseBody);
-            } catch(BadCredentialsException ex) {
-                throw new BadPasswordException("The inserted password is wrong.");
+            } catch (BadCredentialsException ex) {
+                throw new BadPasswordException("The inserted password is incorrect.");
             }
-        }
-        else{
+        } else {
             throw new BadEmailException("The email " + login.getEmail() + " is not registered.");
         }
     }
-    
 }
+

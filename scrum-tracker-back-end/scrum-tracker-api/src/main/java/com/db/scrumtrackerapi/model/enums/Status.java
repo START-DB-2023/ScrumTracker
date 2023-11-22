@@ -5,17 +5,17 @@ package com.db.scrumtrackerapi.model.enums;
  */
 public enum Status{
     /**
-     *  TODO status.
+     *  TO_DO status.
      */
-    TODO,
+    A_FAZER,
     
     /**
      * IN_PROGRESS status.
      */
-    IN_PROGRESS,
+    EM_DESENVOLVIMENTO,
 
     /**
      * DONE status.
      */
-    DONE,
+    CONCLUIDO
 }

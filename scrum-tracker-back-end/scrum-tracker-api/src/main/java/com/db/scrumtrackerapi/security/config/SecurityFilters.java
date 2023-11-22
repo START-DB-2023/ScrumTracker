@@ -38,8 +38,10 @@ public class SecurityFilters {
                         authorizeRequests
                                 .requestMatchers(new AntPathRequestMatcher("/login", "POST")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/register", "POST")).hasRole("ADMIN")
-                                .requestMatchers(new AntPathRequestMatcher("/hello")).authenticated()
-                                
+                                .requestMatchers(new AntPathRequestMatcher("/update", "POST")).hasRole("ADMIN")
+                                .requestMatchers(new AntPathRequestMatcher("/customer", "GET")).hasRole("ADMIN")
+                                .requestMatchers(new AntPathRequestMatcher("/customer", "DELETE")).hasRole("ADMIN")
+
                                 .requestMatchers(new AntPathRequestMatcher("/item-backlog", "POST")).hasAnyRole("ADMIN", "SM", "PO")
                                 .requestMatchers(new AntPathRequestMatcher("/item-backlog", "PUT")).hasAnyRole("ADMIN", "SM", "PO")
                                 .requestMatchers(new AntPathRequestMatcher("/item-backlog", "DELETE")).hasAnyRole("ADMIN", "SM", "PO")

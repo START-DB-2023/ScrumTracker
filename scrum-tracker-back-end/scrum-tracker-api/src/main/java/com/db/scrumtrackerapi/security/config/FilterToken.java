@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import com.db.scrumtrackerapi.security.service.CustomerUserDetailsService;
 import com.db.scrumtrackerapi.security.service.TokenService;
@@ -15,7 +14,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@Component
+/**
+ * Custom filter for handling authentication tokens in the HTTP request.
+ */
 public class FilterToken extends OncePerRequestFilter {
 
     @Autowired
@@ -24,6 +25,15 @@ public class FilterToken extends OncePerRequestFilter {
     @Autowired
     CustomerUserDetailsService customerUserDetailsService;
 
+    /**
+     * Method to perform the filter logic for authentication tokens.
+     *
+     * @param request     The HTTP servlet request.
+     * @param response    The HTTP servlet response.
+     * @param filterChain The filter chain.
+     * @throws ServletException If a servlet-related error occurs.
+     * @throws IOException      If an I/O error occurs.
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {

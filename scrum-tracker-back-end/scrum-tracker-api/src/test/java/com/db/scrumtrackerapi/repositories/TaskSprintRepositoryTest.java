@@ -64,8 +64,8 @@ public class TaskSprintRepositoryTest {
     private ProductBacklog productBacklog2 = new ProductBacklog(new ArrayList<>(), product2);;
 
     ItemBacklog itemBacklog1 = new ItemBacklog(
-        Status.IN_PROGRESS, 
-        Priority.MEDIUM, 
+        Status.EM_DESENVOLVIMENTO, 
+        Priority.MEDIA, 
         "FirstExampleName", 
   "FirstCriteria",
         "FirstExampleEffort", 
@@ -74,8 +74,8 @@ public class TaskSprintRepositoryTest {
         productBacklog1);
 
     ItemBacklog itemBacklog2 = new ItemBacklog(
-        Status.IN_PROGRESS, 
-        Priority.MEDIUM, 
+        Status.A_FAZER, 
+        Priority.MEDIA, 
         "SecondExampleName", 
 "FirstCriteria",
         "SecondExampleEffort", 
@@ -86,8 +86,8 @@ public class TaskSprintRepositoryTest {
     Sprint sprint1 = new Sprint("ExampleGoal", List.of(itemBacklog1), new ArrayList<>());
     Sprint sprint2 = new Sprint("ExampleGoal", List.of(itemBacklog2), new ArrayList<>());
     
-    TaskSprint taskSprint1 = new TaskSprint("FirstExampleName", itemBacklog1, "FirstExampleDescription", "FirstExampleComments", Status.IN_PROGRESS, Priority.LOW, "FirstExampleEffortEstimation", null, sprint1);
-    TaskSprint taskSprint2 = new TaskSprint("SecondExampleName", itemBacklog2, "SecondExampleDescription", "SecondExampleComments", Status.IN_PROGRESS, Priority.LOW, "SecondExampleEffortEstimation", null, sprint2);
+    TaskSprint taskSprint1 = new TaskSprint("FirstExampleName", itemBacklog1, "FirstExampleDescription", "FirstExampleComments", Status.A_FAZER, Priority.BAIXA, "FirstExampleEffortEstimation", null, sprint1);
+    TaskSprint taskSprint2 = new TaskSprint("SecondExampleName", itemBacklog2, "SecondExampleDescription", "SecondExampleComments", Status.A_FAZER, Priority.BAIXA, "SecondExampleEffortEstimation", null, sprint2);
 
     @BeforeAll
     void setup () {

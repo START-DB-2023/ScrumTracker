@@ -50,9 +50,9 @@ public class ItemBacklogDTO{
     private List<Sprint> sprints;
 
     /**
-     * The description of the backlog item.
+     * The userHistory of the backlog item.
      */
-    private String description;
+    private String userHistory;
 
     /**
      * The product backlog associated with the backlog item.
@@ -65,7 +65,7 @@ public class ItemBacklogDTO{
      * @return The ItemBacklog entity created from this DTO.
      */
 	public ItemBacklog toItemBacklog() {
-		return new ItemBacklog(status,priority,name,criteriaAcceptance,effortEstimation,sprints,description,productBacklog);
+		return new ItemBacklog(status,priority,name,criteriaAcceptance,effortEstimation,sprints,userHistory,productBacklog);
 	}
     
     /**
@@ -83,17 +83,17 @@ public class ItemBacklogDTO{
      * @param criteriaAcceptance The criteria for acceptance of the backlog item.
      * @param effortEstimation  The effort estimation for the backlog item.
      * @param sprints           List of sprints associated with the backlog item.
-     * @param description       The description of the backlog item.
+     * @param userHistory       The description of the backlog item.
      * @param productBacklog    The product backlog associated with the backlog item.
      */
-    public ItemBacklogDTO(Status status, Priority priority, String name, String criteriaAcceptance, String effortEstimation, List<Sprint> sprints, String description, ProductBacklog productBacklog) {
+    public ItemBacklogDTO(Status status, Priority priority, String name, String criteriaAcceptance, String effortEstimation, List<Sprint> sprints, String userHistory, ProductBacklog productBacklog) {
         this.status = status;
         this.priority = priority;
         this.name = name;
         this.criteriaAcceptance = criteriaAcceptance;
         this.effortEstimation = effortEstimation;
         this.sprints = sprints;
-        this.description = description;
+        this.userHistory = userHistory;
         this.productBacklog = productBacklog;
     }
 
@@ -210,17 +210,17 @@ public class ItemBacklogDTO{
      *
      * @return The description of the backlog item.
      */
-    public String getDescription() {
-        return this.description;
+    public String getUserHistory() {
+        return this.userHistory;
     }
 
     /**
      * Sets the description of the backlog item.
      *
-     * @param description The description to set.
+     * @param userHistory The description to set.
      */
-    public void setDescription(String description) {
-        this.description = description;
+    public void setUserHistory(String userHistory) {
+        this.userHistory = userHistory;
     }
 
     /**
@@ -258,7 +258,7 @@ public class ItemBacklogDTO{
                 Objects.equals(criteriaAcceptance, itemBacklog.getCriteriaAcceptance()) &&
                 Objects.equals(effortEstimation, itemBacklog.getEffortEstimation()) &&
                 Objects.equals(Arrays.hashCode(sprints.stream().map(i -> i.getId()).toArray()), Arrays.hashCode(itemBacklog.getSprints().stream().map(i -> i.getId()).toArray())) &&
-                Objects.equals(description, itemBacklog.getDescription()) &&
+                Objects.equals(userHistory, itemBacklog.getUserHistory()) &&
                 Objects.equals(productBacklog.getId(), itemBacklog.getProductBacklog().getId());
     }
 
@@ -269,7 +269,7 @@ public class ItemBacklogDTO{
      */
     @Override
     public int hashCode() {
-        return Objects.hash(status, priority, name, criteriaAcceptance, effortEstimation, sprints, description, productBacklog.getId());
+        return Objects.hash(status, priority, name, criteriaAcceptance, effortEstimation, sprints, userHistory, productBacklog.getId());
     }
 
     /**
@@ -286,7 +286,7 @@ public class ItemBacklogDTO{
                 ", criteriaAcceptance='" + getCriteriaAcceptance() + "'" +
                 ", effortEstimation='" + getEffortEstimation() + "'" +
                 ", sprintIds='" + getSprints().stream().map(i -> i.getId()) + "'" +
-                ", description='" + getDescription() + "'" +
+                ", description='" + getUserHistory() + "'" +
                 ", productBacklogId='" + getProductBacklog().getId() + "'" +
                 "}";
     }

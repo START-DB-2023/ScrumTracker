@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.db.scrumtrackerapi.exceptions.EntityNotFoundException;
 import com.db.scrumtrackerapi.model.Customer;
 import com.db.scrumtrackerapi.repositories.CustomerRepository;
+import com.db.scrumtrackerapi.security.service.TokenService;
 import com.db.scrumtrackerapi.services.ICustomerService;
 
 /**
@@ -20,6 +20,9 @@ public class CustomerService implements ICustomerService {
 
     @Autowired
     CustomerRepository customerRepository;
+
+    @Autowired
+    TokenService tokenService;
 
     /**
      * Finds a customer by their email address.
@@ -65,9 +68,25 @@ public class CustomerService implements ICustomerService {
         }
     }
 
+    /**
+     * Updates the information of an existing customer.
+     *
+     * This method retrieves the customer with the given email, checks if it's active, and then updates its
+     * information with the provided customer object. The updated customer is then saved to the repository.
+     *
+     * @param customer The customer object containing the updated information.
+     * @return The updated customer.
+     * @throws EntityNotFoundException If the customer with the specified email is not found or is not active.
+     */
     @Override
     public Customer update(Customer customer) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        Optional<Customer> savedCustomer = findByEmail(customer.getEmail());
+        if (savedCustomer.isPresent() && savedCustomer.get().isActive()) {
+            Customer newCustomer = savedCustomer.get().update(customer);
+            return customerRepository.save(newCustomer);
+        }
+        else{
+            throw new EntityNotFoundException("Customer with email " + customer.getEmail() + " was not found.");        }
     }
+    
 }
