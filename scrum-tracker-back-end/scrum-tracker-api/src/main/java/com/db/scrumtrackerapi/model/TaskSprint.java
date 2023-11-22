@@ -1,10 +1,9 @@
 package com.db.scrumtrackerapi.model;
 
 import java.util.Objects;
-
 import com.db.scrumtrackerapi.model.enums.Priority;
 import com.db.scrumtrackerapi.model.enums.Status;
-
+import com.db.scrumtrackerapi.model.view.TaskSprintView;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -96,6 +95,17 @@ public class TaskSprint extends BaseEntity {
         this.sprint = taskSprint.getSprint();
         return this;
     }
+
+
+    /**
+     * Converts the TaskSprintView object to a view-specific representation, TaskSprintView.
+     *
+     * @return A TaskSprintView object representing the view of the task with its relevant attributes.
+     */
+    public TaskSprintView toView(){
+        return new TaskSprintView(getId(), name, description, comments, status.toString(), priority.toString(), effortEstimation, responsible.toView());
+    }
+
 
     /**
      * Default constructor. Creates an instance of TaskSprint.

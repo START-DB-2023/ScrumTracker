@@ -3,6 +3,8 @@ package com.db.scrumtrackerapi.model;
 
 import java.util.Objects;
 
+import com.db.scrumtrackerapi.model.view.ProductView;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
@@ -78,6 +80,17 @@ public class Product extends BaseEntity {
      * Protected empty constructor for use by persistence frameworks.
      */
     protected Product() {
+    }
+
+    /**
+     * Converts the current product object into a product view object. This method creates a new product view object
+     * with the same ID, name, client, objectives, vision, definition of done, definition of ready, and product backlog
+     * as the current product object.
+     *
+     * @return A product view object representing the current product.
+     */
+    public ProductView toView() {
+        return new ProductView(getId(), name, client, objectives, vision, definitionOfDone, definitionOfReady, productBacklog.toView());
     }
 
     /**

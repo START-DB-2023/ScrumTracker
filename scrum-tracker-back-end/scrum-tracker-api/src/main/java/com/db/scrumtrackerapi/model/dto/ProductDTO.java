@@ -225,8 +225,6 @@ public class ProductDTO {
         this.productBacklog = productBacklog;
     }
 
-
-
     /**
      * Indicates whether some other object is "equal to" this one.
      *

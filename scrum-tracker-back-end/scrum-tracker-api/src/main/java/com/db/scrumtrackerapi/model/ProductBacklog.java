@@ -3,7 +3,7 @@ package com.db.scrumtrackerapi.model;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
+import com.db.scrumtrackerapi.model.view.ProductBacklogView;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -49,6 +49,16 @@ public class ProductBacklog extends BaseEntity {
         this.product = product;
         super.setActive(true);
         super.setTimestamp();
+    }
+
+    /**
+     * Converts the current instance of ProductBacklog to a ProductBacklogView, including its unique identifier
+     * and a list of associated item backlogs represented as ItemBacklogView instances.
+     *
+     * @return A ProductBacklogView representation of the current ProductBacklog instance.
+     */
+    public ProductBacklogView toView() {
+        return new ProductBacklogView(getId(), itensBacklog.stream().map(ItemBacklog::toView).toList());
     }
 
     /**

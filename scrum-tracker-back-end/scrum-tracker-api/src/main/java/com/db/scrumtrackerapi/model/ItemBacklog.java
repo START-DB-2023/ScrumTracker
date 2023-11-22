@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import com.db.scrumtrackerapi.model.enums.Priority;
 import com.db.scrumtrackerapi.model.enums.Status;
+import com.db.scrumtrackerapi.model.view.ItemBacklogView;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -87,6 +88,10 @@ public class ItemBacklog extends BaseEntity {
         this.sprints = itemBacklog.getSprints();
         this.description = itemBacklog.getDescription();
         return this;
+    }
+
+    public ItemBacklogView toView() {
+        return new ItemBacklogView(getId(), status.toString(), priority.toString(), name, criteriaAcceptance, effortEstimation, sprints.stream().map(i -> i.toView()).toList(), description);
     }
 
     /**

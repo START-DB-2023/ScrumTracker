@@ -3,7 +3,8 @@ package com.db.scrumtrackerapi.model;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
+import com.db.scrumtrackerapi.model.view.DetailedSprintView;
+import com.db.scrumtrackerapi.model.view.SprintView;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -42,6 +43,26 @@ public class Sprint extends BaseEntity {
      */
     @OneToMany(mappedBy = "sprint")
     private List<TaskSprint> tasksSprints;
+
+    /**
+     * Converts the current Sprint entity to a SprintView, providing an overview of the Sprint.
+     *
+     * @return SprintView representing the overview of the Sprint.
+     */
+    public SprintView toView() {
+        return new SprintView(getId(), sprintGoals, tasksSprints.stream().map(i -> i.toView()).toList());
+    }
+
+
+    /**
+     * Converts the current Sprint entity to a DetailedSprintView, providing additional details.
+     *
+     * @return DetailedSprintView representing the detailed view of the Sprint.
+     */
+    public DetailedSprintView toDetailedView() {
+        return new DetailedSprintView(getId(), sprintGoals, tasksSprints.stream().map(i -> i.toView()).toList(), itensBacklog.stream().map(i -> i.toView()).toList());
+    }
+
 
     /**
      * Updates the attributes of the current sprint with the attributes of the provided sprint.
