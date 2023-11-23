@@ -1,9 +1,11 @@
 package com.db.scrumtrackerapi.model.dto;
 
+import java.util.List;
 import java.util.Objects;
 
 import com.db.scrumtrackerapi.model.Product;
 import com.db.scrumtrackerapi.model.ProductBacklog;
+import com.db.scrumtrackerapi.model.Sprint;
 
 import jakarta.validation.constraints.NotBlank;
 
@@ -54,6 +56,11 @@ public class ProductDTO {
     private ProductBacklog productBacklog;
 
     /**
+     * The sprints associated with the product.
+     */
+    private List<Sprint> sprints;
+
+    /**
      * Converts the DTO object to a Product entity.
      *
      * @return A Product entity created from the DTO.
@@ -66,7 +73,8 @@ public class ProductDTO {
             this.vision,
             this.definitionOfDone,
             this.definitionOfReady,
-            this.productBacklog
+            this.productBacklog,
+            this.sprints
         );
 
         return product;
@@ -83,7 +91,7 @@ public class ProductDTO {
      * @param definitionOfDone         The readiness status of the product.
      * @param productBacklog The product backlog associated with the product.
      */
-    public ProductDTO(String name, String client, String objectives, String vision, String definitionOfDone, String definitionOfReady, ProductBacklog productBacklog) {
+    public ProductDTO(String name, String client, String objectives, String vision, String definitionOfDone, String definitionOfReady, ProductBacklog productBacklog, List<Sprint> sprints) {
         this.name = name;
         this.client = client;
         this.objectives = objectives;
@@ -91,6 +99,7 @@ public class ProductDTO {
         this.definitionOfDone = definitionOfDone;
         this.definitionOfReady = definitionOfReady;
         this.productBacklog = productBacklog;
+        this.sprints = sprints;
     }
     
     /**

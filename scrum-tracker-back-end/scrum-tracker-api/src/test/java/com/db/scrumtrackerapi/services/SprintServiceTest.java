@@ -31,11 +31,11 @@ public class SprintServiceTest {
     @Test
     @DisplayName("Assert update Sprint return the expected Sprint")
     public void testUpdateItemBacklog(){
-        Sprint savedSprint = new Sprint("ExampleGoal", new ArrayList<>(), new ArrayList<>());
+        Sprint savedSprint = new Sprint("ExampleGoal", new ArrayList<>(), new ArrayList<>(), null);
         
         when(sprintRepository.findById(eq(1L))).thenReturn(Optional.of(savedSprint));
         
-        Sprint expectedSprint = new Sprint("ModifiedExampleGoal", new ArrayList<>(), new ArrayList<>());
+        Sprint expectedSprint = new Sprint("ModifiedExampleGoal", new ArrayList<>(), new ArrayList<>(), null);
 
         when(sprintRepository.save(eq(expectedSprint))).thenReturn(expectedSprint);
 

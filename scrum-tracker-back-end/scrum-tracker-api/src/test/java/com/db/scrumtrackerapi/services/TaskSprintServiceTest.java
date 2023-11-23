@@ -47,7 +47,7 @@ public class TaskSprintServiceTest {
             "FirstExampleDescription",
             null);
 
-        Sprint sprint = new Sprint("ExampleGoal", List.of(itemBacklog), new ArrayList<>());
+        Sprint sprint = new Sprint("ExampleGoal", List.of(itemBacklog), new ArrayList<>(), null);
 
         TaskSprint savedTaskSprint = new TaskSprint("FirstExampleName", itemBacklog, "FirstExampleDescription", "FirstExampleComments", Status.EM_DESENVOLVIMENTO, Priority.BAIXA, "FirstExampleEffortEstimation", null, sprint);
 

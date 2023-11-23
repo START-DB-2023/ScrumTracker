@@ -47,7 +47,8 @@ public class TaskSprintRepositoryTest {
         "FirstExampleVision",
         "FirstExampleState",
         "FirstExampleReady",
-        null
+        null, 
+        List.of()
     );
 
     private Product product2 = new Product(
@@ -57,7 +58,8 @@ public class TaskSprintRepositoryTest {
         "SecondExampleVision",
         "SecondExampleState",
         "SecondExampleReady",
-        null
+        null,
+        List.of()
     );
 
     private ProductBacklog productBacklog1 = new ProductBacklog(new ArrayList<>(), product1);;
@@ -83,8 +85,8 @@ public class TaskSprintRepositoryTest {
         "SecondExampleDescription",
         productBacklog2);
 
-    Sprint sprint1 = new Sprint("ExampleGoal", List.of(itemBacklog1), new ArrayList<>());
-    Sprint sprint2 = new Sprint("ExampleGoal", List.of(itemBacklog2), new ArrayList<>());
+    Sprint sprint1 = new Sprint("ExampleGoal", List.of(itemBacklog1), new ArrayList<>(), product1);
+    Sprint sprint2 = new Sprint("ExampleGoal", List.of(itemBacklog2), new ArrayList<>(), product2);
     
     TaskSprint taskSprint1 = new TaskSprint("FirstExampleName", itemBacklog1, "FirstExampleDescription", "FirstExampleComments", Status.A_FAZER, Priority.BAIXA, "FirstExampleEffortEstimation", null, sprint1);
     TaskSprint taskSprint2 = new TaskSprint("SecondExampleName", itemBacklog2, "SecondExampleDescription", "SecondExampleComments", Status.A_FAZER, Priority.BAIXA, "SecondExampleEffortEstimation", null, sprint2);

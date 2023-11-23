@@ -15,4 +15,6 @@ public interface ISprintService {
     Sprint findById(Long id);
 
     Sprint deactivateById(Long id);
+
+    List<Sprint> findByProductId(Long productId);
 }

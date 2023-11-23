@@ -1,5 +1,6 @@
 package com.db.scrumtrackerapi.model.view;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -49,6 +50,11 @@ public class ProductView {
     private ProductBacklogView productBacklogView;
 
     /**
+     * The view of the sprint backlog associated with the product.
+     */
+    private List<SprintView> sprintViews; 
+
+    /**
      * Default constructor for use by persistence frameworks.
      */
     protected ProductView() {
@@ -65,8 +71,9 @@ public class ProductView {
      * @param definitionOfDone The definition of done for the product.
      * @param definitionOfReady The definition of ready for the product.
      * @param productBacklogView The view of the product backlog associated with the product.
+     * @param SprintViews The view of the sprints associated with the product
      */
-    public ProductView(Long id, String name, String client, String objectives, String vision, String definitionOfDone, String definitionOfReady, ProductBacklogView productBacklogView) {
+    public ProductView(Long id, String name, String client, String objectives, String vision, String definitionOfDone, String definitionOfReady, ProductBacklogView productBacklogView, List<SprintView> sprintViews) {
         this.id = id;
         this.name = name;
         this.client = client;
@@ -75,6 +82,7 @@ public class ProductView {
         this.definitionOfDone = definitionOfDone;
         this.definitionOfReady = definitionOfReady;
         this.productBacklogView = productBacklogView;
+        this.sprintViews = sprintViews;
     }
 
     /**
@@ -222,6 +230,24 @@ public class ProductView {
     }
 
     /**
+     * Gets the views of the sprints associated with the product.
+     *
+     * @return The view of the sprints associated with the product.
+     */
+    public List<SprintView> getSprintViews() {
+        return this.sprintViews;
+    }
+
+    /**
+     * Sets the view of the sprints associated with the product.
+     *
+     * @param sprintViews lis of views of the sprints to set.
+     */
+    public void setSprintsView(List<SprintView> sprintViews) {
+        this.sprintViews = sprintViews;
+    }
+
+    /**
      * Indicates whether some other object is "equal to" this one.
      *
      * @param o The reference object with which to compare.
@@ -235,7 +261,7 @@ public class ProductView {
             return false;
         }
         ProductView productView = (ProductView) o;
-        return Objects.equals(id, productView.id) && Objects.equals(name, productView.name) && Objects.equals(client, productView.client) && Objects.equals(objectives, productView.objectives) && Objects.equals(vision, productView.vision) && Objects.equals(definitionOfDone, productView.definitionOfDone) && Objects.equals(definitionOfReady, productView.definitionOfReady) && Objects.equals(productBacklogView, productView.productBacklogView);
+        return Objects.equals(id, productView.id) && Objects.equals(name, productView.name) && Objects.equals(client, productView.client) && Objects.equals(objectives, productView.objectives) && Objects.equals(vision, productView.vision) && Objects.equals(definitionOfDone, productView.definitionOfDone) && Objects.equals(definitionOfReady, productView.definitionOfReady) && Objects.equals(productBacklogView, productView.productBacklogView) && Objects.equals(sprintViews, productView.sprintViews);
     }
 
     /**
@@ -245,7 +271,7 @@ public class ProductView {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, client, objectives, vision, definitionOfDone, definitionOfReady, productBacklogView);
+        return Objects.hash(id, name, client, objectives, vision, definitionOfDone, definitionOfReady, productBacklogView, sprintViews);
     }
 
     /**
@@ -264,6 +290,7 @@ public class ProductView {
             ", definitionOfDone='" + getDefinitionOfDone() + "'" +
             ", definitionOfReady='" + getDefinitionOfReady() + "'" +
             ", productBacklogView='" + getProductBacklogView() + "'" +
+            ", sprintViews='" + getSprintViews() + "'" +
             "}";
     }
 }

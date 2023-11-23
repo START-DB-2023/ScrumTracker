@@ -32,7 +32,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorMessageView> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        ErrorMessageView response = new ErrorMessageView("Validation failed.", HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+        ErrorMessageView response = new ErrorMessageView("Falha na validação da requisição.", HttpStatus.BAD_REQUEST.value(), ex.getMessage());
         return ResponseEntity.badRequest().body(response);
     }
 
@@ -45,7 +45,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorMessageView> handleValidationExceptions(ValidationException ex) {
-        ErrorMessageView response = new ErrorMessageView("Validation failed.", HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+        ErrorMessageView response = new ErrorMessageView("Falha na validação da requisição.", HttpStatus.BAD_REQUEST.value(), ex.getMessage());
         return ResponseEntity.badRequest().body(response);
     }
     /**
@@ -57,7 +57,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(TokenExpiredException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<ErrorMessageView> handleExpiredTokensException(TokenExpiredException ex) {
-        ErrorMessageView response = new ErrorMessageView("This token has expired.", HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
+        ErrorMessageView response = new ErrorMessageView("O token expirou.", HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
         return ResponseEntity.badRequest().body(response);
     }
     
@@ -70,7 +70,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(DataIntegrityViolationException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<ErrorMessageView> handleDataIntegrityViolationxception(DataIntegrityViolationException ex) {      
-        ErrorMessageView response = new ErrorMessageView("Bad Request for database.", HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+        ErrorMessageView response = new ErrorMessageView("Falha de requisição para o banco de dados.", HttpStatus.BAD_REQUEST.value(), ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
@@ -83,7 +83,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(EntityAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<ErrorMessageView> handleEntityExistsException(EntityAlreadyExistsException ex) {      
-        ErrorMessageView response = new ErrorMessageView("Entity already exists on the database.", HttpStatus.CONFLICT.value(), ex.getMessage());
+        ErrorMessageView response = new ErrorMessageView("A entidade já existe no banco de dados.", HttpStatus.CONFLICT.value(), ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
 
@@ -96,7 +96,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorMessageView> handleEntityNotFoundException(EntityNotFoundException ex) {      
-        ErrorMessageView response = new ErrorMessageView("Entity not found in the database.", HttpStatus.NOT_FOUND.value(), ex.getMessage());
+        ErrorMessageView response = new ErrorMessageView("A entidade não foi encontrada no banco de dados.", HttpStatus.NOT_FOUND.value(), ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
 
@@ -109,7 +109,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(BadPasswordException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<ErrorMessageView> handleAuthenticationException(BadPasswordException ex) {
-        ErrorMessageView response = new ErrorMessageView("Authentication failed", HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
+        ErrorMessageView response = new ErrorMessageView("Falha na autenticação.", HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 
@@ -122,7 +122,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(BadEmailException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorMessageView> handleUserNameNotFoundExcepiton(BadEmailException ex) {
-        ErrorMessageView response = new ErrorMessageView("Email wasn't registered in the database.", HttpStatus.NOT_FOUND.value(), ex.getMessage());
+        ErrorMessageView response = new ErrorMessageView("O email não está cadastrado no banco de dados.", HttpStatus.NOT_FOUND.value(), ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
@@ -135,7 +135,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ErrorMessageView> serverError(Exception ex) {
-        ErrorMessageView response = new ErrorMessageView("Internal Server Error.", HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
+        ErrorMessageView response = new ErrorMessageView("Erro interno do servidor.", HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 }

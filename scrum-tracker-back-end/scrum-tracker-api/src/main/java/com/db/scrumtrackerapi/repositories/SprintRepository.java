@@ -24,4 +24,13 @@ public interface SprintRepository extends CrudRepository<Sprint, Long> {
     @Query("SELECT s FROM Sprint s  JOIN s.itensBacklog i WHERE i.id = :itensBacklogId")
     List<Sprint> findByItensBacklogId(@Param("itensBacklogId") Long id);
 
+    /**
+     * Retrieves a list of sprints by product ID.
+     *
+     * @param id The ID of the associated product.
+     * @return The list of sprints associated with the given product.
+     */
+    @Query("SELECT s FROM Sprint s WHERE s.product.id = :productId")
+    List<Sprint> findByProductId(@Param("productId") Long id);
+
 }

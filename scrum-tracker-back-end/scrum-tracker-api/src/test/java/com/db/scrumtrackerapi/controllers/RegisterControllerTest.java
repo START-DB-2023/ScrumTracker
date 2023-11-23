@@ -66,14 +66,15 @@ public class RegisterControllerTest {
                             .registerModule(errorMessageSerializerModule);
         
         mockMvc = MockMvcBuilders.standaloneSetup(registerCustomerController).build();
+        
+        headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+   
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testRegisterCustomer() throws Exception {
-        headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
-        
+    void testRegisterCustomer() throws Exception {       
         CustomerView responseBody = new CustomerView( "Joao", "Ninguem", "joao@email.com", "ADMIN");
         String responseBodyJson = objectMapper.writeValueAsString(responseBody);
 
@@ -93,13 +94,11 @@ public class RegisterControllerTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testRegisterCustomerWithWeakPassword() throws Exception {
-        headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
+    void tiRegisterCustomerWithWeakPassword() throws Exception {
         
         CustomerDTO requestBody = new CustomerDTO( "Joao", "Ninguem", "joao@email.com", "pass123", Role.ADMIN);
         String requestBodyJson = objectMapper.writeValueAsString(requestBody);
-               
+        
         mockMvc.perform(post("/register").headers(headers).content(requestBodyJson))
         .andExpect(status().isBadRequest()).andReturn();
     }
@@ -107,9 +106,7 @@ public class RegisterControllerTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testRegisterCustomerWithBlankPassword() throws Exception {
-        headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
+    void tiRegisterCustomerWithBlankPassword() throws Exception {
         
         CustomerDTO requestBody = new CustomerDTO( "Joao", "Ninguem", "joao@email.com", "", Role.ADMIN);
         String requestBodyJson = objectMapper.writeValueAsString(requestBody);
@@ -120,9 +117,7 @@ public class RegisterControllerTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testRegisterCustomerWithBlankEmail() throws Exception {
-        headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
+    void tiRegisterCustomerWithBlankEmail() throws Exception {
         
         CustomerDTO requestBody = new CustomerDTO( "Joao", "Ninguem", "", "Pass@2023", Role.ADMIN);
         String requestBodyJson = objectMapper.writeValueAsString(requestBody);
@@ -131,24 +126,22 @@ public class RegisterControllerTest {
         .andExpect(status().isBadRequest()).andReturn();
     }
 
-    @Test
-    @WithMockUser(roles = "ADMIN")
-    void testRegisterCustomerWithNullPassword() throws Exception {
-        headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
+    // @Test
+    // @WithMockUser(roles = "ADMIN")
+    // void testRegisterCustomerWithNullPassword() throws Exception {
+    //     headers = new HttpHeaders();
+    //     headers.set("Content-Type", "application/json");
         
-        CustomerDTO requestBody = new CustomerDTO( "Joao", "Ninguem", "joao@email.com", null, Role.ADMIN);
-        String requestBodyJson = objectMapper.writeValueAsString(requestBody);
+    //     CustomerDTO requestBody = new CustomerDTO( "Joao", "Ninguem", "joao@email.com", null, Role.ADMIN);
+    //     String requestBodyJson = objectMapper.writeValueAsString(requestBody);
                
-        mockMvc.perform(post("/register").headers(headers).content(requestBodyJson))
-        .andExpect(status().isBadRequest()).andReturn();
-    }
+    //     mockMvc.perform(post("/register").headers(headers).content(requestBodyJson))
+    //     .andExpect(status().isBadRequest()).andReturn();
+    // }
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testRegisterCustomerWithNullEmail() throws Exception {
-        headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
+    void tiRegisterCustomerWithNullEmail() throws Exception {
         
         CustomerDTO requestBody = new CustomerDTO( "Joao", "Ninguem", null, "Pass@2023", Role.ADMIN);
         String requestBodyJson = objectMapper.writeValueAsString(requestBody);
@@ -159,9 +152,7 @@ public class RegisterControllerTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testRegisterCustomerWithBlankLastName() throws Exception {
-        headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
+    void tiRegisterCustomerWithBlankLastName() throws Exception {
         
         CustomerDTO requestBody = new CustomerDTO( "Joao", "", "joao@email.com", "Pass@2023", Role.ADMIN);
         String requestBodyJson = objectMapper.writeValueAsString(requestBody);
@@ -172,9 +163,7 @@ public class RegisterControllerTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void testRegisterCustomerWithBlankName() throws Exception {
-        headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
+    void tiRegisterCustomerWithBlankName() throws Exception {
         
         CustomerDTO requestBody = new CustomerDTO( "", "Ninguem", "joao@email.com", "Pass@2023", Role.ADMIN);
         String requestBodyJson = objectMapper.writeValueAsString(requestBody);

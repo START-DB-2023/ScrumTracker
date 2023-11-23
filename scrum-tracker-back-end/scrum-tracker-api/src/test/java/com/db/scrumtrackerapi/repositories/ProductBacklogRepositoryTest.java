@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -32,7 +33,8 @@ public class ProductBacklogRepositoryTest {
         "FirstExampleVision",
         "FirstExampleState",
         "FirstExampleReady",
-        null
+        null,
+        List.of()
     );
 
     private Product product2 = new Product(
@@ -42,7 +44,8 @@ public class ProductBacklogRepositoryTest {
         "SecondExampleVision",
         "SecondExampleState",
         "SecondExampleReady",
-        null
+        null,
+        List.of()
     );
 
     private ProductBacklog productBacklog1 = new ProductBacklog(new ArrayList<>(), product1);;

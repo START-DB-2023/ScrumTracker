@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,7 +39,8 @@ public class ProductBacklogServiceTest {
             "ExampleVision",
             "ExampleState",
             "ExampleReady",
-            null
+            null,
+            List.of()
         );
 
     private ProductBacklog expectedProductBacklog = new ProductBacklog(new ArrayList<>(), product);
@@ -50,35 +52,5 @@ public class ProductBacklogServiceTest {
         ProductBacklog actualProductBacklog = productBacklogService.findByProductId(1L);
         assertEquals(expectedProductBacklog, actualProductBacklog);
     }
-
-    // @Test
-    // public void testUpdateProduct() {
-
-    //     Product savedProduct = new Product(
-    //         "ExampleName",
-    //         "ExampleClient",
-    //         "ExampleObjectives",
-    //         "ExampleVision",
-    //         "ExampleState",
-    //         "ExampleReady",
-    //         null
-    //     );
-
-    //     when(productBacklogRepository.findById(eq(1L))).thenReturn(Optional.of(savedProduct));
-        
-    //     Product expectedProduct = new Product(
-    //         "ModifiedExampleName",
-    //         "ModifiedExampleClient",
-    //         "ModifiedExampleObjectives",
-    //         "ModifiedExampleVision",
-    //         "ModifiedExampleState",
-    //         "ModifiedReady",
-    //         null
-    //     );
-
-    //     when(productBacklogRepository.save(eq(expectedProduct))).thenReturn(expectedProduct);
-    //     Product actualProduct = productBacklogService.update(1L, expectedProduct);
-    //     assertEquals(expectedProduct, actualProduct);
-    // }
 
 }

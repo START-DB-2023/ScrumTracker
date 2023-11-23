@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import com.db.scrumtrackerapi.model.view.DetailedSprintView;
 import com.db.scrumtrackerapi.model.view.ItemBacklogView;
+import com.db.scrumtrackerapi.model.view.ProductView;
 import com.db.scrumtrackerapi.model.view.SprintView;
 import com.db.scrumtrackerapi.model.view.TaskSprintView;
 import jakarta.persistence.Column;
@@ -12,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -40,6 +42,10 @@ public class Sprint extends BaseEntity {
     )
     private List<ItemBacklog> itensBacklog;
 
+    @ManyToOne
+    @JoinColumn(name = "product")
+    private Product product;
+
     /**
      * The tasks associated with the sprint.
      */
@@ -60,7 +66,6 @@ public class Sprint extends BaseEntity {
         }
         return new SprintView(getId(), sprintGoals, taskSprintViews);
     }
-
     
     /**
      * Converts the current Sprint entity to a DetailedSprintView, providing additional details.
@@ -82,7 +87,14 @@ public class Sprint extends BaseEntity {
             itemBacklogViews = null;
         }
         
-        return new DetailedSprintView(getId(), sprintGoals, taskSprintViews, itemBacklogViews);
+        ProductView productView;
+        if (product != null) {
+            productView = product.toView();
+        } else {
+            productView = null;
+        }
+
+        return new DetailedSprintView(getId(), sprintGoals, taskSprintViews, itemBacklogViews, productView);
     }
 
 
@@ -95,7 +107,8 @@ public class Sprint extends BaseEntity {
     public Sprint update(Sprint sprint) {
         this.sprintGoals = sprint.getSprintGoals();
         this.itensBacklog = sprint.getItensBacklog();
-        this.tasksSprints = sprint.getTasksSprints(); 
+        this.tasksSprints = sprint.getTasksSprints();
+        this.product = sprint.getProduct();
         return this; 
     }
 
@@ -112,10 +125,11 @@ public class Sprint extends BaseEntity {
      * @param itensBacklog  The backlog items associated with the sprint.
      * @param tasksSprints  The tasks associated with the sprint.
      */
-    public Sprint(String sprintGoals, List<ItemBacklog> itensBacklog, List<TaskSprint> tasksSprints) {
+    public Sprint(String sprintGoals, List<ItemBacklog> itensBacklog, List<TaskSprint> tasksSprints, Product product) {
         this.sprintGoals = sprintGoals;
         this.itensBacklog = itensBacklog;
         this.tasksSprints = tasksSprints;
+        this.product = product;
         super.setActive(true);
         super.setTimestamp();
     }
@@ -137,6 +151,25 @@ public class Sprint extends BaseEntity {
     public void setSprintGoals(String sprintGoals) {
         this.sprintGoals = sprintGoals;
     }
+
+    /**
+     * Gets the product of the sprint.
+     *
+     * @return The product of the sprint.
+     */
+    public Product getProduct() {
+        return this.product;
+    }
+
+    /**
+     * Sets the product of the sprint.
+     *
+     * @param product The product to set.
+     */
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
 
     /**
      * Gets the backlog items associated with the sprint.

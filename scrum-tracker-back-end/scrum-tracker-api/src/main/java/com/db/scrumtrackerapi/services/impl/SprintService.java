@@ -3,7 +3,6 @@ package com.db.scrumtrackerapi.services.impl;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.db.scrumtrackerapi.exceptions.EntityNotFoundException;
@@ -20,6 +19,17 @@ public class SprintService implements ISprintService {
 
     @Autowired
     private SprintRepository sprintRepository;
+
+    /**
+     * Finds a list of {@link Sprint} entities by its associated product ID.
+     *
+     * @param productId The product ID associated with the {@link Sprint} entity.
+     * @return The list of {@link Sprint} entity.
+     */
+    @Override
+    public List<Sprint> findByProductId(Long productId) {
+        return sprintRepository.findByProductId(productId).stream().filter(i -> i.isActive()).toList();
+    }
 
     /**
      * Retrieves a list of sprints by item backlog ID, filtering only active sprints.

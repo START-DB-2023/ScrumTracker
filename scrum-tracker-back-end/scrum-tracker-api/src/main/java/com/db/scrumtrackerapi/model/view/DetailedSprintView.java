@@ -30,6 +30,11 @@ public class DetailedSprintView {
     private List<ItemBacklogView> itemBacklogViews;
 
     /**
+     * The product associated with the Sprint.
+     */
+    private ProductView productView;
+
+    /**
      * Default constructor for DetailedSprintView.
      */
     protected DetailedSprintView() {
@@ -43,11 +48,12 @@ public class DetailedSprintView {
      * @param tasksSprints The tasks associated with the Sprint.
      * @param itemBacklogViews The backlog items associated with the Sprint.
      */
-    public DetailedSprintView(Long id, String sprintGoals, List<TaskSprintView> tasksSprints, List<ItemBacklogView> itemBacklogViews) {
+    public DetailedSprintView(Long id, String sprintGoals, List<TaskSprintView> tasksSprints, List<ItemBacklogView> itemBacklogViews, ProductView productView) {
         this.id = id;
         this.sprintGoals = sprintGoals;
         this.tasksSprints = tasksSprints;
         this.itemBacklogViews = itemBacklogViews;
+        this.productView = productView;
     }
 
     /**
@@ -122,48 +128,23 @@ public class DetailedSprintView {
         this.itemBacklogViews = itemBacklogViews;
     }
 
+
     /**
-     * Fluent method to set the id attribute.
+     * Retrieves the project of the Sprint.
      *
-     * @param id The unique identifier of the Sprint.
-     * @return The updated DetailedSprintView instance.
+     * @return The project of the Sprint.
      */
-    public DetailedSprintView id(Long id) {
-        setId(id);
-        return this;
+    public ProductView getProductView() {
+        return this.productView;
     }
 
     /**
-     * Fluent method to set the sprintGoals attribute.
+     * Sets the goals of the Sprint.
      *
      * @param sprintGoals The goals of the Sprint.
-     * @return The updated DetailedSprintView instance.
      */
-    public DetailedSprintView sprintGoals(String sprintGoals) {
-        setSprintGoals(sprintGoals);
-        return this;
-    }
-
-    /**
-     * Fluent method to set the tasksSprints attribute.
-     *
-     * @param tasksSprints The tasks associated with the Sprint.
-     * @return The updated DetailedSprintView instance.
-     */
-    public DetailedSprintView tasksSprints(List<TaskSprintView> tasksSprints) {
-        setTasksSprints(tasksSprints);
-        return this;
-    }
-
-    /**
-     * Fluent method to set the itemBacklogViews attribute.
-     *
-     * @param itemBacklogViews The backlog items associated with the Sprint.
-     * @return The updated DetailedSprintView instance.
-     */
-    public DetailedSprintView itemBacklogViews(List<ItemBacklogView> itemBacklogViews) {
-        setItemBacklogViews(itemBacklogViews);
-        return this;
+    public void setProductView(ProductView productView) {
+        this.productView = productView;
     }
 
     /**
@@ -180,7 +161,7 @@ public class DetailedSprintView {
             return false;
         }
         DetailedSprintView detailedSprintView = (DetailedSprintView) o;
-        return Objects.equals(id, detailedSprintView.id) && Objects.equals(sprintGoals, detailedSprintView.sprintGoals) && Objects.equals(tasksSprints, detailedSprintView.tasksSprints) && Objects.equals(itemBacklogViews, detailedSprintView.itemBacklogViews);
+        return Objects.equals(id, detailedSprintView.id) && Objects.equals(sprintGoals, detailedSprintView.sprintGoals) && Objects.equals(tasksSprints, detailedSprintView.tasksSprints) && Objects.equals(itemBacklogViews, detailedSprintView.itemBacklogViews) && Objects.equals(productView, detailedSprintView.productView);
     }
 
     /**
@@ -190,7 +171,7 @@ public class DetailedSprintView {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(id, sprintGoals, tasksSprints, itemBacklogViews);
+        return Objects.hash(id, sprintGoals, tasksSprints, itemBacklogViews, productView);
     }
 
     /**

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
@@ -40,7 +41,8 @@ public class ProductServiceTest {
             "ExampleVision",
             "ExampleState",
             "ExampleReady",
-            null
+            null,
+            List.of()
         );
 
         when(productRepository.getLast()).thenReturn(expectedProduct);
@@ -58,7 +60,8 @@ public class ProductServiceTest {
             "ExampleVision",
             "ExampleState",
             "ExampleReady",
-            null
+            null,
+            List.of()
         );
 
         when(productRepository.findById(eq(1L))).thenReturn(Optional.of(savedProduct));
@@ -70,7 +73,8 @@ public class ProductServiceTest {
             "ModifiedExampleVision",
             "ModifiedExampleState",
             "ModifiedReady",
-            null
+            null,
+            List.of()
         );
 
         when(productRepository.save(eq(expectedProduct))).thenReturn(expectedProduct);

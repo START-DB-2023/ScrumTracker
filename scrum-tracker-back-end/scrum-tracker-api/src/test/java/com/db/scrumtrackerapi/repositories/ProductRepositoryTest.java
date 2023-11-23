@@ -3,6 +3,8 @@ package com.db.scrumtrackerapi.repositories;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +28,8 @@ public class ProductRepositoryTest {
         "FirstExampleVision",
         "FirstExampleState",
         "FirstExampleReady",
-        null
+        null,
+        List.of()
     );
 
     private Product expectedProduct = new Product(
@@ -36,7 +39,8 @@ public class ProductRepositoryTest {
         "ExampleVision",
         "ExampleState",
         "ExampleReady",
-        null
+        null,
+        List.of()
     );
 
     @BeforeAll

@@ -43,7 +43,8 @@ public class ItemBacklogRepositoryTest {
         "FirstExampleVision",
         "FirstExampleState",
         "FirstExampleReady",
-        null
+        null,
+        List.of()
     );
 
     private Product product2 = new Product(
@@ -53,7 +54,8 @@ public class ItemBacklogRepositoryTest {
         "SecondExampleVision",
         "SecondExampleState",
         "SecondExampleReady",
-        null
+        null,
+        List.of()
     );
 
     private ProductBacklog productBacklog1 = new ProductBacklog(new ArrayList<>(), product1);;
@@ -79,8 +81,8 @@ public class ItemBacklogRepositoryTest {
         "SecondExampleDescription",
         productBacklog2);
 
-    Sprint sprint1 = new Sprint("ExampleGoal", List.of(itemBacklog1), new ArrayList<>());
-    Sprint sprint2 = new Sprint("ExampleGoal", List.of(itemBacklog2), new ArrayList<>());
+    Sprint sprint1 = new Sprint("ExampleGoal", List.of(itemBacklog1), new ArrayList<>(), null);
+    Sprint sprint2 = new Sprint("ExampleGoal", List.of(itemBacklog2), new ArrayList<>(), null);
 
     @BeforeAll
     void setup () {

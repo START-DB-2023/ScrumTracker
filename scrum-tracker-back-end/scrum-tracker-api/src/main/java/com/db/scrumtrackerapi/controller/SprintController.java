@@ -29,11 +29,11 @@ public class SprintController {
     /**
      * Retrieves a detailed view of a alls Sprints
      *
-     * @return List of ResponseEntity containing the DetailedSprintView of all Sprints.
+     * @return List of ResponseEntity containing the DetailedSprintView of all Sprints with.
      */
-    @RequestMapping(value="/", method=RequestMethod.GET)
-    ResponseEntity<List<DetailedSprintView>> getAll() {
-        return ResponseEntity.ok().body(sprintService.getAllSprints().stream().map(i -> i.toDetailedView()).toList());
+    @RequestMapping(value="/product/{id}", method=RequestMethod.GET)
+    ResponseEntity<List<DetailedSprintView>> getAll(@PathVariable Long id) {
+        return ResponseEntity.ok().body(sprintService.findByProductId(id).stream().map(i -> i.toDetailedView()).toList());
     }
 
     /**

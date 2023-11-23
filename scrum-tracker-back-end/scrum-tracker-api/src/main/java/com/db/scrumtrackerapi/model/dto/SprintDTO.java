@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import com.db.scrumtrackerapi.model.ItemBacklog;
+import com.db.scrumtrackerapi.model.Product;
 import com.db.scrumtrackerapi.model.Sprint;
 import com.db.scrumtrackerapi.model.TaskSprint;
 
@@ -26,13 +27,15 @@ public class SprintDTO{
      */
     private List<TaskSprint> tasksSprints;
 
+    private Product product;
+
     /**
      * Converts the DTO object to a Sprint entity.
      *
      * @return A Sprint entity created from the DTO.
      */
     public Sprint toSprint(){
-        return new Sprint(sprintGoals, itensBacklog, tasksSprints);
+        return new Sprint(sprintGoals, itensBacklog, tasksSprints, product);
     }
 
     /**
@@ -47,11 +50,13 @@ public class SprintDTO{
      * @param sprintGoals   The goals of the sprint.
      * @param itensBacklog  The backlog items associated with the sprint.
      * @param tasksSprints  The tasks associated with the sprint.
+     * @param product       The product associated with the sprint.
      */
-    public SprintDTO(String sprintGoals, List<ItemBacklog> itensBacklog, List<TaskSprint> tasksSprints) {
+    public SprintDTO(String sprintGoals, List<ItemBacklog> itensBacklog, List<TaskSprint> tasksSprints, Product product) {
         this.sprintGoals = sprintGoals;
         this.itensBacklog = itensBacklog;
         this.tasksSprints = tasksSprints;
+        this.product = product;
     }
 
     /**
@@ -70,6 +75,24 @@ public class SprintDTO{
      */
     public void setSprintGoals(String sprintGoals) {
         this.sprintGoals = sprintGoals;
+    }
+
+    /**
+     * Gets the product of the sprint.
+     *
+     * @return The product of the sprint.
+     */
+    public Product getProduct() {
+        return this.product;
+    }
+
+    /**
+     * Sets the product of the sprint.
+     *
+     * @param product The product to set.
+     */
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     /**
@@ -121,7 +144,8 @@ public class SprintDTO{
         Sprint sprint = (Sprint) o;
         return Objects.equals(sprintGoals, sprint.getSprintGoals()) &&
                 Objects.equals(Arrays.hashCode(itensBacklog.stream().map(i -> i.getId()).toArray()), Arrays.hashCode(sprint.getItensBacklog().stream().map(i -> i.getId()).toArray())) &&
-                Objects.equals(Arrays.hashCode(tasksSprints.stream().map(i -> i.getId()).toArray()), Arrays.hashCode(sprint.getTasksSprints().stream().map(i -> i.getId()).toArray()));
+                Objects.equals(Arrays.hashCode(tasksSprints.stream().map(i -> i.getId()).toArray()), Arrays.hashCode(sprint.getTasksSprints().stream().map(i -> i.getId()).toArray())) &&
+                Objects.equals(product.getId(), sprint.getProduct().getId());
     }
 
     /**
@@ -131,7 +155,7 @@ public class SprintDTO{
      */
     @Override
     public int hashCode() {
-        return Objects.hash(sprintGoals, Arrays.hashCode(itensBacklog.stream().map(i -> i.getId()).toArray()),  Arrays.hashCode(tasksSprints.stream().map(i -> i.getId()).toArray()));
+        return Objects.hash(sprintGoals, Arrays.hashCode(itensBacklog.stream().map(i -> i.getId()).toArray()),  Arrays.hashCode(tasksSprints.stream().map(i -> i.getId()).toArray()), product.getId());
     }
 
     /**
@@ -145,6 +169,7 @@ public class SprintDTO{
                 " sprintGoals='" + getSprintGoals() + "'" +
                 ", itemBacklogIds='" + getItensBacklog().stream().map(i -> i.getId()) + "'" +
                 ", taskSprintsIds='" + getTasksSprints().stream().map(i -> i.getId()) + "'" +
+                ", productId" + getProduct().getId() + "'" +
                 "}";
     }
 }

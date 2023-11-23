@@ -3,11 +3,15 @@ package com.db.scrumtrackerapi.model;
 
 import java.util.Objects;
 
+import java.util.List;
+
 import com.db.scrumtrackerapi.model.view.ProductBacklogView;
 import com.db.scrumtrackerapi.model.view.ProductView;
+import com.db.scrumtrackerapi.model.view.SprintView;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -60,6 +64,9 @@ public class Product extends BaseEntity {
     @OneToOne(mappedBy = "product")
     private ProductBacklog productBacklog;
 
+    @OneToMany(mappedBy = "product")
+    private List<Sprint> sprints;
+
     
     /**
      * Updates the attributes of the current item backlog with the attributes of the provided item backlog.
@@ -74,6 +81,7 @@ public class Product extends BaseEntity {
         this.vision = product.getVision();
         this.definitionOfReady = product.getDefinitionOfReady();
         this.definitionOfDone = product.getDefinitionOfDone();
+        this.sprints = product.sprints;
         return this;
     }
 
@@ -97,7 +105,13 @@ public class Product extends BaseEntity {
         } else {
             productBacklogView = null;
         }
-        return new ProductView(getId(), name, client, objectives, vision, definitionOfDone, definitionOfReady, productBacklogView);
+        List<SprintView> sprintViews;
+        if (sprints != null) {
+            sprintViews = sprints.stream().filter(i -> i.isActive()).map(i -> i.toView()).toList();
+        } else {
+            sprintViews = null;
+        }
+        return new ProductView(getId(), name, client, objectives, vision, definitionOfDone, definitionOfReady, productBacklogView, sprintViews);
     }
 
     /**
@@ -110,8 +124,9 @@ public class Product extends BaseEntity {
      * @param definitionOfReady         The definitionOfReady of the product.
      * @param definitionOfDone         The readiness status of the product.
      * @param productBacklog The product backlog associated with the product.
+     * @param sprints The sprints associated with the product.
      */
-    public Product(String name, String client, String objectives, String vision, String definitionOfReady, String definitionOfDone, ProductBacklog productBacklog) {
+    public Product(String name, String client, String objectives, String vision, String definitionOfReady, String definitionOfDone, ProductBacklog productBacklog, List<Sprint> sprints) {
         this.name = name;
         this.client = client;
         this.objectives = objectives;
@@ -119,6 +134,7 @@ public class Product extends BaseEntity {
         this.definitionOfReady = definitionOfReady;
         this.definitionOfDone = definitionOfDone;
         this.productBacklog = productBacklog;
+        this.sprints = sprints;
         super.setActive(true);
         super.setTimestamp();
     }
@@ -249,6 +265,24 @@ public class Product extends BaseEntity {
      */
     public void setProductBacklog(ProductBacklog productBacklog) {
         this.productBacklog = productBacklog;
+    }
+
+    /**
+     * Gets the sprints associated with the product.
+     *
+     * @return The sprints associated with the product.
+     */
+    public List<Sprint> getSprints() {
+        return this.sprints;
+    }
+
+    /**
+     * Sets the sprint associated with the product.
+     *
+     * @param sprints The sprints to set.
+     */
+    public void setSprints(List<Sprint> sprints) {
+        this.sprints = sprints;
     }
 
     /**

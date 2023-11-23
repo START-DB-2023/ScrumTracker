@@ -24,6 +24,7 @@ public class SprintView {
      */
     private List<TaskSprintView> tasksSprints;
 
+
     /**
      * Default constructor for SprintView.
      */
