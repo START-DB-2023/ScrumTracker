@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.test.context.support.WithMockUser;
+
 import com.db.scrumtrackerapi.controller.CustomerController;
 import com.db.scrumtrackerapi.model.view.CustomerView;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -47,6 +49,7 @@ public class CustomerControllerTest {
     }
 
     @Test
+    @WithMockUser(roles="ADMIN")
     public void testGetCustomerByEmail() throws Exception{
         String email = "joao@email.com";
         mockMvc.perform(get("/customer?email="+email))

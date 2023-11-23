@@ -54,7 +54,7 @@ public class Sprint extends BaseEntity {
     public SprintView toView() {
         List<TaskSprintView> taskSprintViews;
         if (tasksSprints != null) {
-            taskSprintViews = tasksSprints.stream().map(i -> i.toView()).toList();
+            taskSprintViews = tasksSprints.stream().filter(i -> i.isActive()).map(i -> i.toView()).toList();
         } else {
             taskSprintViews = null;
         }
@@ -70,14 +70,14 @@ public class Sprint extends BaseEntity {
     public DetailedSprintView toDetailedView() {
         List<TaskSprintView> taskSprintViews;
         if (tasksSprints != null) {
-            taskSprintViews = tasksSprints.stream().map(i -> i.toView()).toList();
+            taskSprintViews = tasksSprints.stream().filter(i -> i.isActive()).map(i -> i.toView()).toList();
         } else {
             taskSprintViews = null;
         }
         
         List<ItemBacklogView> itemBacklogViews;
         if (itensBacklog != null) {
-            itemBacklogViews = itensBacklog.stream().map(i -> i.toView()).toList();
+            itemBacklogViews = itensBacklog.stream().filter(i -> i.isActive()).map(i -> i.toView()).toList();
         } else {
             itemBacklogViews = null;
         }

@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.db.scrumtrackerapi.controller.RegisterCustomerController;
@@ -68,6 +69,7 @@ public class RegisterControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testRegisterCustomer() throws Exception {
         headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
@@ -75,7 +77,7 @@ public class RegisterControllerTest {
         CustomerView responseBody = new CustomerView( "Joao", "Ninguem", "joao@email.com", "ADMIN");
         String responseBodyJson = objectMapper.writeValueAsString(responseBody);
 
-        CustomerDTO requestBody = new CustomerDTO( "Joao", "Ninguem", "joao@email.com", "letmein123", Role.ADMIN);
+        CustomerDTO requestBody = new CustomerDTO( "Joao", "Ninguem", "joao@email.com", "Pass@2023", Role.ADMIN);
         String requestBodyJson = objectMapper.writeValueAsString(requestBody);
 
         Customer expectedCustomer = requestBody.toCustomer(passwordEncoder);
@@ -89,28 +91,96 @@ public class RegisterControllerTest {
          verify(customerService).save(any(Customer.class));
     }
 
-    /* 
     @Test
-    void testEntityExistsException() throws Exception {
+    @WithMockUser(roles = "ADMIN")
+    void testRegisterCustomerWithWeakPassword() throws Exception {
         headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
-
-        CustomerDTO requestBody = new CustomerDTO( "Joao", "Ninguem", "joao@email.com", "letmein123", Role.ADMIN);
+        
+        CustomerDTO requestBody = new CustomerDTO( "Joao", "Ninguem", "joao@email.com", "pass123", Role.ADMIN);
         String requestBodyJson = objectMapper.writeValueAsString(requestBody);
-
-        String exceptionMessage = "User " + requestBody.getEmail() + " already exists.";
-        ErrorMessage expectedResponse = new ErrorMessage("Entity already exists on database.", HttpStatus.CONFLICT.value(), exceptionMessage);
-        String expectedResponseJson = objectMapper.writeValueAsString(expectedResponse);
-
-        when(customerService.save(any(Customer.class))).thenThrow(new EntityExistsException(exceptionMessage));
-
+               
         mockMvc.perform(post("/register").headers(headers).content(requestBodyJson))
-        .andExpect(status().isConflict())
-        .andExpect(content().json(expectedResponseJson))
-        .andReturn();
-
-        verify(customerService).save(any(Customer.class));
+        .andExpect(status().isBadRequest()).andReturn();
     }
-     */
+
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void testRegisterCustomerWithBlankPassword() throws Exception {
+        headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        
+        CustomerDTO requestBody = new CustomerDTO( "Joao", "Ninguem", "joao@email.com", "", Role.ADMIN);
+        String requestBodyJson = objectMapper.writeValueAsString(requestBody);
+               
+        mockMvc.perform(post("/register").headers(headers).content(requestBodyJson))
+        .andExpect(status().isBadRequest()).andReturn();
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void testRegisterCustomerWithBlankEmail() throws Exception {
+        headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        
+        CustomerDTO requestBody = new CustomerDTO( "Joao", "Ninguem", "", "Pass@2023", Role.ADMIN);
+        String requestBodyJson = objectMapper.writeValueAsString(requestBody);
+               
+        mockMvc.perform(post("/register").headers(headers).content(requestBodyJson))
+        .andExpect(status().isBadRequest()).andReturn();
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void testRegisterCustomerWithNullPassword() throws Exception {
+        headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        
+        CustomerDTO requestBody = new CustomerDTO( "Joao", "Ninguem", "joao@email.com", null, Role.ADMIN);
+        String requestBodyJson = objectMapper.writeValueAsString(requestBody);
+               
+        mockMvc.perform(post("/register").headers(headers).content(requestBodyJson))
+        .andExpect(status().isBadRequest()).andReturn();
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void testRegisterCustomerWithNullEmail() throws Exception {
+        headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        
+        CustomerDTO requestBody = new CustomerDTO( "Joao", "Ninguem", null, "Pass@2023", Role.ADMIN);
+        String requestBodyJson = objectMapper.writeValueAsString(requestBody);
+               
+        mockMvc.perform(post("/register").headers(headers).content(requestBodyJson))
+        .andExpect(status().isBadRequest()).andReturn();
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void testRegisterCustomerWithBlankLastName() throws Exception {
+        headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        
+        CustomerDTO requestBody = new CustomerDTO( "Joao", "", "joao@email.com", "Pass@2023", Role.ADMIN);
+        String requestBodyJson = objectMapper.writeValueAsString(requestBody);
+               
+        mockMvc.perform(post("/register").headers(headers).content(requestBodyJson))
+        .andExpect(status().isBadRequest()).andReturn();
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void testRegisterCustomerWithBlankName() throws Exception {
+        headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        
+        CustomerDTO requestBody = new CustomerDTO( "", "Ninguem", "joao@email.com", "Pass@2023", Role.ADMIN);
+        String requestBodyJson = objectMapper.writeValueAsString(requestBody);
+               
+        mockMvc.perform(post("/register").headers(headers).content(requestBodyJson))
+        .andExpect(status().isBadRequest()).andReturn();
+    }
 
 }

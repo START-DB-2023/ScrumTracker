@@ -37,7 +37,7 @@ public class SecurityFilters {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(new AntPathRequestMatcher("/login", "POST")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/register", "POST")).hasRole("ADMIN")
+                                //.requestMatchers(new AntPathRequestMatcher("/register", "POST")).hasRole("ADMIN")
                                 .requestMatchers(new AntPathRequestMatcher("/update", "POST")).hasRole("ADMIN")
                                 .requestMatchers(new AntPathRequestMatcher("/customer", "GET")).hasRole("ADMIN")
                                 .requestMatchers(new AntPathRequestMatcher("/customer", "DELETE")).hasRole("ADMIN")

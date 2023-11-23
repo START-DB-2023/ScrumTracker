@@ -63,7 +63,7 @@ public class ProductBacklog extends BaseEntity {
     public ProductBacklogView toView() {
         List<ItemBacklogView> itemBacklogViews;
         if (itensBacklog != null) {
-            itemBacklogViews = itensBacklog.stream().map(i -> i.toView()).toList();
+            itemBacklogViews = itensBacklog.stream().filter(i -> i.isActive()).map(i -> i.toView()).toList();
         } else {
             itemBacklogViews = null;
         }

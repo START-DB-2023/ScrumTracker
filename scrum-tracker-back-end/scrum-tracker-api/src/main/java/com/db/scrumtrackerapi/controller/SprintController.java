@@ -27,6 +27,16 @@ public class SprintController {
     SprintService sprintService;
 
     /**
+     * Retrieves a detailed view of a alls Sprints
+     *
+     * @return List of ResponseEntity containing the DetailedSprintView of all Sprints.
+     */
+    @RequestMapping(value="/", method=RequestMethod.GET)
+    ResponseEntity<List<DetailedSprintView>> getAll() {
+        return ResponseEntity.ok().body(sprintService.getAllSprints().stream().map(i -> i.toDetailedView()).toList());
+    }
+
+    /**
      * Retrieves a detailed view of a Sprint by its ID.
      *
      * @param id The ID of the Sprint to retrieve.

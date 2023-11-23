@@ -99,7 +99,7 @@ public class ItemBacklog extends BaseEntity {
     public ItemBacklogView toView() {
         List<SprintView> sprintViews;
         if (sprints != null) {
-            sprintViews = sprints.stream().map(i -> i.toView()).toList();
+            sprintViews = sprints.stream().filter(i -> i.isActive()).map(i -> i.toView()).toList();
         } else {
             sprintViews = null;
         }

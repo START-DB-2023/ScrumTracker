@@ -1,5 +1,6 @@
 package com.db.scrumtrackerapi.controller.advice;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -13,6 +14,8 @@ import com.db.scrumtrackerapi.exceptions.BadPasswordException;
 import com.db.scrumtrackerapi.exceptions.EntityAlreadyExistsException;
 import com.db.scrumtrackerapi.exceptions.EntityNotFoundException;
 import com.db.scrumtrackerapi.model.view.ErrorMessageView;
+
+import jakarta.validation.ValidationException;
 
 /**
  * Global exception handler for the application.
@@ -34,6 +37,18 @@ public class ExceptionControllerAdvice {
     }
 
     /**
+     * Handles validation exceptions.
+     *
+     * @param ex The exception to handle.
+     * @return ResponseEntity containing an error message and HTTP status code.
+     */
+    @ExceptionHandler(ValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorMessageView> handleValidationExceptions(ValidationException ex) {
+        ErrorMessageView response = new ErrorMessageView("Validation failed.", HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+        return ResponseEntity.badRequest().body(response);
+    }
+    /**
      * Handles token expiration exceptions.
      *
      * @param ex The exception to handle.
@@ -46,6 +61,19 @@ public class ExceptionControllerAdvice {
         return ResponseEntity.badRequest().body(response);
     }
     
+    /**
+     * Handles data integrity exceptions.
+     *
+     * @param ex The exception to handle.
+     * @return ResponseEntity containing an error message and HTTP status code.
+     */
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<ErrorMessageView> handleDataIntegrityViolationxception(DataIntegrityViolationException ex) {      
+        ErrorMessageView response = new ErrorMessageView("Bad Request for database.", HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+
     /**
      * Handles entity already exists exceptions.
      *

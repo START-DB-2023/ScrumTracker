@@ -105,7 +105,7 @@ public class TaskSprint extends BaseEntity {
      */
     public TaskSprintView toView(){
         CustomerView responsibleView;
-        if (responsible != null) {
+        if (responsible != null && responsible.isActive()) {
             responsibleView = responsible.toView();
         } else {
             responsibleView = null;

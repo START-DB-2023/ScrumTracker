@@ -92,7 +92,7 @@ public class Product extends BaseEntity {
      */
     public ProductView toView() {
         ProductBacklogView productBacklogView;
-        if (productBacklog != null) {
+        if (productBacklog != null && isActive()) {
             productBacklogView = productBacklog.toView();
         } else {
             productBacklogView = null;
