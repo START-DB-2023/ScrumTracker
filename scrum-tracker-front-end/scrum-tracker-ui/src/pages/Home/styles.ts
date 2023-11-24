@@ -22,7 +22,7 @@ align-items: end;
     } */
 
     @media (max-width:400px) {
-        border-top-right-radius: 35%;
+        border-top-right-radius: 33%;
     }
 }
 `
@@ -42,6 +42,11 @@ export const NavBar = styled.nav`
     height: 6rem;
     width: 6rem;
     border-radius: 100px !important;
+
+    @media (max-width:500px) {
+        right: 1rem;
+        top: 1.3rem;
+    }
 }
 
     ul{

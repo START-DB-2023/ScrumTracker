@@ -91,19 +91,6 @@ table{
         border-top: 0.3rem solid ${props => props.theme.COLORS["gray-100"]};
     }
 
-    /* td h1{
-    text-align: center;
-      max-width: 15rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    } */
-
-
-
-
-
-
 .history{
         max-width: 50rem;
         text-align: center;
@@ -116,13 +103,13 @@ table{
 `
 
 const STATUS_COLOR = {
-  MÉDIA: "yellow-100",
-  BAIXA: "green-300",
-  ALTA: "red-500",
+    MEDIA: "yellow-100",
+    BAIXA: "green-300",
+    ALTA: "red-500",
 } as const;
 
 interface StatusProps {
-  $statusColor: keyof typeof STATUS_COLOR;
+    $statusColor: keyof typeof STATUS_COLOR;
 }
 
 export const Status = styled.span<StatusProps>`
@@ -134,6 +121,6 @@ export const Status = styled.span<StatusProps>`
 
   border-radius:${props => props.theme.BORDERRADIUS.lg};
   background-color: ${(props) =>
-    props.theme.COLORS[STATUS_COLOR[props.$statusColor]]};
+        props.theme.COLORS[STATUS_COLOR[props.$statusColor]]};
 `;
 

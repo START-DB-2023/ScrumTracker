@@ -1,30 +1,22 @@
 import { useRef } from 'react';
+import closed from '../../assets/close.svg';
+import api from '../../connections/api';
+import { useDataProductContext } from "../../contexts/ProductContext";
+import { useGlobalContext } from '../../contexts/UserContext';
+import { tokenService } from '../../utils/TokenService';
+import Button from '../Button';
 import TextAreaModal from '../TextAreaModal/index';
 import { ModalContainer } from "./styles";
-import api from '../../connections/api';
-import { tokenService } from '../../utils/TokenService';
-import { useDataProductContext } from "../../contexts/ProductContext"
-import Button from '../Button';
-import { useGlobalContext } from '../../contexts/UserContext'
 
-interface IregisterProduct {
-  name: string,
-  client: string,
-  objectives: string,
-  vision: string,
-  state: string,
-  ready: string
-
-}
 
 export default function ModalRegisterProduct() {
   const { setOpenModal } = useGlobalContext();
 
-  const { setDataProduct, dataProduct } = useDataProductContext();
+  const { setDataProduct } = useDataProductContext();
 
   const formRegisterRef = useRef<HTMLFormElement>(null);
 
-  async function registerProduct(event: React.ChangeEvent<HTMLInputElement>): Promise<void> {
+  async function registerProduct(event: React.FormEvent<HTMLFormElement>): Promise<void> {
     event?.preventDefault()
 
     if (formRegisterRef.current) {
@@ -42,26 +34,25 @@ export default function ModalRegisterProduct() {
         setDataProduct(response.data);
         setOpenModal(false)
 
-        try {
-          const response = await api.post("product-backlog/", {
-            itensBacklog: null,
-            product: {...dataProduct}
-          }, {
-            headers: {
-              Authorization: `Bearer ${tokenService.get("token")}`
-            }
-          });
-
-          console.log(response);
+        console.log(response);
 
 
-          setDataProduct([
-            ...dataProduct,
-            response.data
-          ])
-        } catch (error) {
-          console.log(error);
-        }
+
+        await api.post("product-backlog/", {
+          itensBacklog: [],
+          product: response.data
+        }, {
+          headers: {
+            Authorization: `Bearer ${tokenService.get("token")}`
+          }
+        });
+
+
+        //  setDataProduct([
+        //   ...dataProduct,
+        //   response.data
+        // ]) 
+
       } catch (error) {
         console.log(error);
       }
@@ -71,36 +62,37 @@ export default function ModalRegisterProduct() {
   return (
     <ModalContainer id="modal">
       <div id='background-Modal'>
-        <h2> Registro de Produto</h2>
+        <div className='containerModalHeader'>
+          <h2> Registro de Produto</h2>
+          <img src={closed} alt="Fechar" onClick={() => setOpenModal(false)} />
+        </div>
         <form ref={formRegisterRef} method='post' onSubmit={registerProduct}>
           <div >
             <label htmlFor="name">Nome:*</label>
             <input id="name" name="name" type="text" maxLength={255} />
           </div>
           <div>
-            <label htmlFor="ready">Cliente:*</label>
+            <label htmlFor="client">Cliente:*</label>
             <input id="client" name="client" type="text" />
           </div>
           <div>
             <label htmlFor="objectives">Objetivos:</label>
-            <TextAreaModal id="objectives" />
+            <textarea id="objectives" name='objectives'></textarea>
           </div>
           <div >
             <label htmlFor="vision">Visão do produto</label>
-            <TextAreaModal id="vision" />
+            <textarea id="vision" name='vision'></textarea>
           </div>
           <div>
-            <label htmlFor="state" >Definição de Preparado</label>
-            <TextAreaModal id="state" />
+            <label htmlFor="definitionOfReady" >Definição de Preparado</label>
+            <textarea id="definitionOfReady" name='definitionOfReady'></textarea>
           </div>
           <div>
-            <label htmlFor="ready">Definição de Pronto</label>
-            <TextAreaModal id="ready" />
+            <label htmlFor="definitionOfDone">Definição de Pronto</label>
+            <textarea id="definitionOfDone" name='definitionOfDone'></textarea>
           </div>
           <Button title='Registrar' variant="primary" freesize type='submit' />
         </form>
-
-        {/* <img src={SignOut} alt="sair" /> */}
       </div>
     </ModalContainer>
   );

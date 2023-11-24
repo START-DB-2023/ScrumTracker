@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-interface TextAreaModal {
+interface ITextAreaModal {
   id: string;
 }
 
-const TextAreaModal: React.FC<TextAreaModal> = ({ id }) => {
-  const [textValue, setTextValue] = useState<string>('');
+const TextAreaModal: React.FC<ITextAreaModal> = ({ id }) => {
+  const [textValue, setTextValue] = useState<string>("");
   const [textareaStyle, setTextareaStyle] = useState<React.CSSProperties>({
     width: 'auto',
     minHeight: '4.6rem', // Altura mínima desejada

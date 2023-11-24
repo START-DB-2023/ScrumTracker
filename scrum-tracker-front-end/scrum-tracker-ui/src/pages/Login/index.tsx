@@ -11,13 +11,16 @@ import { useNavigate } from "react-router-dom";
 import { tokenService } from "../../utils/TokenService";
 import Spinner from "../../components/Spinner";
 import { AxiosError } from 'axios';
-import {useDataProductContext} from '../../contexts/ProductContext'
+import { useDataProductContext } from "../../contexts/ProductContext";
+/* import {useDataProductContext} from '../../contexts/ProductContext' */
 
 
 export default function Login() {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+
+  const { setDataProduct } = useDataProductContext();
 
   /* const {searchProjects} = useDataProductContext(); */
 
@@ -48,7 +51,6 @@ export default function Login() {
       });
 
       const token = response.data.token;
-      console.log(response)
 
       //salvando no localStorage
       tokenService.save("token", token)
@@ -58,12 +60,10 @@ export default function Login() {
 
       if (tokenService.get("token")) {
         setLoading(false);
-        /* searchProjects() */
+        searchProjects()
         toast.success("Login efetuado com sucesso", {});
         navigate("/");
       }
-
-      
 
     } catch (error) {
       if (error instanceof AxiosError && error.response?.data.exceptionMessage === "Bad credentials.") {
@@ -73,6 +73,19 @@ export default function Login() {
           })
         )
       }
+    }
+  }
+
+  async function searchProjects(): Promise<void> {
+
+    try {
+      const response = await api.get("/product/", {
+      });
+      setDataProduct(response.data)
+      //console.log(response.data.id);
+
+    } catch (error) {
+      console.log(error);
     }
   }
 

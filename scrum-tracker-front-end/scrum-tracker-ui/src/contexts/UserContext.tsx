@@ -4,8 +4,8 @@ interface GlobalContextProviderProps {
   children: React.ReactNode;
 }
 
-type Status = "A Fazer" | "Em desenvolvimento" | "Bloqueado" | "Encaminhado para testes" | "Concluído"
-type Priority = "ALTA" | "MÉDIA" | "BAIXA";
+type Status = "A_FAZER" | "EM_DESENVOLVIMENTO" | "CONCLUIDO"
+type Priority = "ALTA" | "MEDIA" | "BAIXA";
 
 interface ContextProps {
   modalOpenSignOut: boolean;
@@ -24,6 +24,8 @@ interface ContextProps {
   setStatus: React.Dispatch<SetStateAction<Status[]>>;
   priority: Priority[];
   setPriority: React.Dispatch<SetStateAction<Priority[]>>;
+  openComponentSprint: boolean;
+  setOpenComponentSprint: React.Dispatch<SetStateAction<boolean>>;
 }
 
 // Criando o contexto com os valores padrão
@@ -42,6 +44,8 @@ const GlobalContext = createContext<ContextProps>({
   setOpenComponentProject: (): boolean => true,
   openComponentProduct: false,
   setOpenComponentProduct: (): boolean => false,
+  openComponentSprint: false,
+  setOpenComponentSprint: (): boolean => false,
   status: [],
   setStatus: (): void => { },
   priority: [],
@@ -55,18 +59,38 @@ export const GlobalContextProvider = ({ children }: GlobalContextProviderProps) 
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [openComponentProject, setOpenComponentProject] = useState(true);
   const [openComponentProduct, setOpenComponentProduct] = useState(false);
+  const [openComponentSprint, setOpenComponentSprint] = useState(false);
   const [status, setStatus] = useState<Status[]>([
-    "A Fazer",
-    "Em desenvolvimento",
-    "Bloqueado",
-    "Encaminhado para testes",
-    "Concluído"
+    "A_FAZER",
+    "EM_DESENVOLVIMENTO",
+    "CONCLUIDO"
   ])
   const [priority, setPriority] = useState<Priority[]>([
     "ALTA",
-    "MÉDIA",
+    "MEDIA",
     "BAIXA"
   ])
+
+  function handleComponent(event: { event?: Event | undefined }) {
+
+    const saida = (event.event?.target as HTMLElement).textContent;
+    if (saida === "Home") {
+      setOpenComponentProject(true);
+      setOpenComponentProduct(false)
+    } else if (saida === "Product Backlog") {
+      setOpenComponentProject(false);
+      setOpenComponentProduct(true)
+    }
+
+  }
+
+  function openModalComponent() {
+    if (openComponentProject) {
+      setOpenModal(true)
+    } else if (openComponentProduct) {
+      setOpenModalItem(true)
+    }
+  }
 
   const props = {
     modalOpenSignOut,
@@ -84,7 +108,11 @@ export const GlobalContextProvider = ({ children }: GlobalContextProviderProps) 
     priority,
     setPriority,
     openModalItem,
-    setOpenModalItem
+    setOpenModalItem,
+    openComponentSprint,
+    setOpenComponentSprint,
+    handleComponent,
+    openModalComponent
   };
 
   return (

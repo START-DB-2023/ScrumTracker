@@ -1,4 +1,4 @@
-import {createGlobalStyle} from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
 
@@ -21,6 +21,10 @@ body {
     font-family: 'Poppins', sans-serif;
     color: ${props => props.theme.COLORS.Transparent};
     overflow:hidden; 
+}
+
+a{
+    text-decoration: none;
 }
 
 `

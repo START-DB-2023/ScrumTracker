@@ -15,8 +15,8 @@ function ModalEditProject() {
     "client": dataProduct.client,
     "objectives": dataProduct.objectives,
     "vision": dataProduct.vision,
-    "state": dataProduct.state,
-    "ready": dataProduct.ready
+    "definitionOfReady": dataProduct.definitionOfDone,
+    "definitionOfDone": dataProduct.definitionOfReady
   })
 
   function handleChangeProject(event: React.ChangeEvent<HTMLInputElement>) {
@@ -59,27 +59,27 @@ function ModalEditProject() {
         <FormContainer onSubmit={(event: React.FormEvent<HTMLFormElement>) => submitFormEditProduct(event)} >
           <div >
             <label htmlFor="name">Nome:*</label>
-            <input id="name" name="name" type="text" maxLength={255} value={dadoForm.name} onChange={(event) => handleChangeProject(event)} />
+            <input id="name" name="name" type="text" maxLength={255} value={dadoForm.name} onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleChangeProject(event)} />
           </div>
           <div >
             <label htmlFor="client">Client:*</label>
-            <input id="client" name="client" type="text" maxLength={255} value={dadoForm.client} onChange={(event) => handleChangeProject(event)} />
+            <input id="client" name="client" type="text" maxLength={255} value={dadoForm.client} onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleChangeProject(event)} />
           </div>
           <div>
             <label htmlFor="objectives">Objetivos:</label>
-            <textarea id="objectives" name="objectives" value={dadoForm.objectives} onChange={(event) => handleChangeProjectArea(event)}></textarea>
+            <textarea id="objectives" name="objectives" value={dadoForm.objectives} onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleChangeProjectArea(event)}></textarea>
           </div>
           <div>
             <label htmlFor="vision">Visão do Produto:</label>
-            <textarea id="vision" name="vision" value={dadoForm.vision} onChange={(event) => handleChangeProjectArea(event)}></textarea>
+            <textarea id="vision" name="vision" value={dadoForm.vision} onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleChangeProjectArea(event)}></textarea>
           </div>
           <div>
-            <label htmlFor="state">Definição de Preparado:</label>
-            <textarea id="state" name="state" value={dadoForm.state} onChange={(event) => handleChangeProjectArea(event)}></textarea>
+            <label htmlFor="definitionOfReady">Definição de Preparado:</label>
+            <textarea id="definitionOfReady" name="definitionOfReady" value={dadoForm.definitionOfReady} onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleChangeProjectArea(event)}></textarea>
           </div>
           <div>
-            <label htmlFor="ready">Definição de Pronto:</label>
-            <textarea id="ready" name="ready" value={dadoForm.ready} onChange={(event) => handleChangeProjectArea(event)}></textarea>
+            <label htmlFor="definitionOfDone">Definição de Pronto:</label>
+            <textarea id="definitionOfDone" name="definitionOfDone" value={dadoForm.definitionOfDone} onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleChangeProjectArea(event)}></textarea>
           </div>
           <ButtonWrapper>
             <Button title="Atualizar" variant="primary" freesize={true} type="submit" />

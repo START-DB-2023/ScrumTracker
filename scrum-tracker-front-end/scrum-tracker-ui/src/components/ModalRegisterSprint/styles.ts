@@ -10,6 +10,7 @@ display: flex;
   top: 14vh;
   left: 0;
   width: 100%;
+  height:100%;
   overflow-y: scroll;
   max-height: -webkit-fill-available;
   padding: 12rem 0 2rem 0;
@@ -28,18 +29,6 @@ display: flex;
     padding:3rem 4rem;
     border-radius:3rem;
     gap: 2rem;
-
-    .containerModalHeader{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        margin-bottom: 2rem;
-    }
-
-    .containerModalHeader img {
-        cursor: pointer;
-    }
     }
 
     &::-webkit-scrollbar{
@@ -56,22 +45,28 @@ display: flex;
     background: ${props => props.theme.COLORS["green-200"]};
 }
 
+.containerSprint{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
+    margin-bottom: 2rem;
+}
 
     h2{
         font-size: 2.5rem;
+        
     }
 
-
     @media (${(props) => props.theme.BREAKPOINTS.tablet}) {
-      
+     
         padding:2rem 3rem;
     }
 
     @media (max-width:430px) {
         
         padding:1rem 3rem;
-        
+       
     }
 
     form{
@@ -94,7 +89,7 @@ display: flex;
         border-radius:8px;
         }
         textarea{
-            height: 3.6rem;
+            height: 9.6rem;
             border: 1.5px solid ${props => props.theme.COLORS["gray-200"]};
             border-radius:8px;
             resize:none;
@@ -114,3 +109,4 @@ display: flex;
 
 
 `
+

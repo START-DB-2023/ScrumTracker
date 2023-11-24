@@ -3,6 +3,7 @@ import Home from "../pages/Home"
 import Login from "../pages/Login"
 import PrivateRoute from "./privateRoute"
 import { DefaultLayout } from "../layouts/DefaultLayout"
+import Sprints from "../pages/Sprints"
 
 
 export default function Router() {
@@ -16,6 +17,12 @@ export default function Router() {
               <Home />
             </PrivateRoute>
           } />
+          <Route path="/sprint/:id" element={
+            <PrivateRoute>
+              <Sprints />
+            </PrivateRoute>
+          } />
+
         </Route>
 
       </Routes>
