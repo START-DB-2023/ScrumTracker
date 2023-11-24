@@ -51,14 +51,14 @@ const ModalEditProduct: React.FC<ModalEditProductProps> = ({ itemProductBacklog 
 
     //console.log(listSprints);
 
-    //console.log(dadoForm.sprints);
+    console.log(dadoForm.sprints[0].id);
 
     //let sprint = {}
 
 
     if (listSprints.length !== 0) {
       try {
-        const response = await api.get(`/sprint/${dadoForm.sprints}`, {
+        const response = await api.get(`/sprint/${dadoForm.sprints[0].id}`, {
           headers: {
             Authorization: `Bearer ${tokenService.get("token")}`
           }
@@ -82,7 +82,7 @@ const ModalEditProduct: React.FC<ModalEditProductProps> = ({ itemProductBacklog 
 
   async function putSprintEdit(event) {
     try {
-      await api.put(`/sprint/${dadoForm.sprints}`, {
+      await api.put(`/sprint/${dadoForm.sprints[0].id}`, {
         sprintGoals: event.sprintGoals,
         itensBacklog: [{
           ...dadoForm,
